@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Divides Us Universe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --latar: #fdfbfb;
+            --teks1: #2d3436;
+            --teks2: #636e72;
+            --aksen1: #d63031;
+            --oren1: #ff9f43;
+            --grad1: linear-gradient(45deg, var(--aksen1), var(--oren1));
+            --putih: #ffffff;
+            --bayang: rgba(0, 0, 0, 0.08);
+            --bayang-gelap: rgba(0, 0, 0, 0.15);
+            --batas: #dfe6e9;
+        }
+
+        .badan {
+            font-family: 'Cal Sans', sans-serif;
+            background-color: var(--latar);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23dfe6e9' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            color: var(--teks2);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 100px;
+        }
+        
+        .badan.no-ges {
+            overflow: hidden;
+        }
+
+        .peringatan {
+            background: var(--grad1);
+            color: var(--putih);
+            text-align: center;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            position: fixed;
+            width: 100%;
+            top: 50px;
+            left: 0;
+            z-index: 1002;
+            box-shadow: 0 5px 20px rgba(214, 48, 49, 0.3);
+            border-bottom: 2px solid var(--putih);
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        }
+
+        .navigasi {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--batas);
+            z-index: 999;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navigasi-daftar {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+        .navigasi-item a {
+            text-decoration: none;
+            color: var(--teks2);
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .navigasi-item a:hover {
+            color: var(--aksen1);
+        }
+
+        .utama {
+            width: 100%;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .utama .potoWad {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px var(--bayang-gelap);
+            border: 4px solid var(--putih);
+        }
+
+        .utama .gbrX {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .utama .judulX {
+            font-size: clamp(2rem, 7vw, 3.5rem);
+            color: var(--teks1);
+            margin-bottom: 1rem;
+        }
+        
+        .utama .narasi-wadah {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .utama .narasi {
+            font-family: 'Cal Sans', sans-serif;
+            font-weight: normal;
+            font-size: 1.2rem; 
+            color: var(--teks2);
+            position: relative;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+        }
+        .utama .narasi.singkat {
+            max-height: 150px;
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+        .utama #bacaLengkapNarasi {
+            font-family: 'Cal Sans', sans-serif;
+            background: var(--grad1);
+            color: var(--putih);
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .utama #bacaLengkapNarasi:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(214, 48, 49, 0.35);
+        }
+
+        .gila {
+            text-align: center;
+            padding: 2rem 1.5rem 3rem;
+        }
+        
+        .gila .uwu {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: 2px;
+            background-image: var(--grad1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 25px rgba(214, 48, 49, 0.2);
+        }
+        
+        .cuy {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .omah {
+            background: var(--putih);
+            border: 1px solid var(--batas);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 5px 20px var(--bayang);
+        }
+
+        @keyframes uwih {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .omah:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 18px 40px var(--bayang-gelap);
+        }
+
+        .omah .poto {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--oren1);
+            margin: 0 auto 1rem;
+            background-color: #b2bec3;
+            box-shadow: 0 5px 20px var(--bayang);
+        }
+        
+        .omah .nma {
+            font-size: 1.6rem;
+            margin-bottom: 0.25rem;
+            color: var(--teks1);
+        }
+        
+        .omah .cetk {
+            font-family: 'Cal Sans', sans-serif;
+            font-weight: normal;
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            color: var(--aksen1);
+        }
+
+        .omah .desc-singkat {
+            font-family: 'Cal Sans', sans-serif;
+            font-weight: normal;
+            font-size: 0.95rem;
+            height: 80px;
+            color: var(--teks2);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .omah .uhuy {
+            font-family: 'Cal Sans', sans-serif;
+            background: var(--grad1);
+            color: var(--putih);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            align-self: center;
+            margin-top: auto;
+        }
+        
+        .omah .uhuy:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(214, 48, 49, 0.4);
+        }
+
+        .peti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            backdrop-filter: blur(8px);
+            z-index: 1001;
+            padding: 1rem;
+        }
+        
+        .peti.buka {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .isih {
+            background: var(--putih);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--batas);
+        }
+        
+        .isih.nav-isih {
+            max-width: 600px;
+            height: auto;
+            max-height: 80vh;
+        }
+        .isih.nav-isih .teksWad { text-align: center; }
+
+        .peti.buka .isih {
+            transform: translateY(0) scale(1);
+        }
+
+        .potoWad-modal {
+            flex-shrink: 0;
+            background-color: var(--latar);
+        }
+        
+        #potoX {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            max-height: 40vh;
+        }
+
+        .teksWad {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .teksWad::-webkit-scrollbar { width: 8px; }
+        .teksWad::-webkit-scrollbar-track { background: #f1f2f6; }
+        .teksWad::-webkit-scrollbar-thumb { background: var(--oren1); border-radius: 10px; }
+        
+        #nmaX, .nav-isih h2 {
+            font-size: 2.2rem;
+            color: var(--teks1);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        #descX, .nav-isih p {
+            font-family: 'Cal Sans', sans-serif;
+            text-align: justify;
+            opacity: 0.9;
+            font-weight: normal;
+            white-space: pre-line;
+            color: var(--teks2);
+        }
+
+        .anim-teks {
+            animation: asoy 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes asoy {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tutup {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            border: none;
+            color: var(--putih);
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            z-index: 1001;
+        }
+        .tutup:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+            background: var(--aksen1);
+        }
+
+        .kontak-modal-daftar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .kontak-modal-item {
+            text-decoration: none;
+            color: var(--teks2);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .kontak-modal-item:hover {
+            color: var(--aksen1);
+            transform: scale(1.1);
+        }
+        .kontak-modal-item svg {
+            width: 48px;
+            height: 48px;
+            fill: currentColor;
+        }
+
+        .kaki {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--putih);
+            border-top: 1px solid var(--batas);
+            margin-top: 2rem;
+            color: var(--teks2);
+        }
+
+        @media (max-width: 767px) {
+            .navigasi-daftar {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .navigasi-item {
+                padding: 0 0.5rem;
+            }
+            .navigasi-item a { font-size: 1rem; }
+            .peringatan { font-size: 0.9rem; top: 76px; }
+            .badan { padding-top: 140px; }
+        }
+
+        @media (min-width: 768px) {
+            .badan { padding-top: 100px; }
+            .utama { padding: 4rem 1.5rem; }
+            .gila { padding: 0 1.5rem 4rem; }
+            .cuy { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .isih { flex-direction: row; height: 600px; max-height: 90vh; }
+            .isih.nav-isih { flex-direction: column; height: auto; max-width: 600px; }
+            .potoWad-modal {
+                flex-basis: 45%;
+                height: 100%;
+                background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+            }
+            #potoX { max-height: none; object-fit: cover; }
+            .teksWad { flex-basis: 55%; height: 100%; padding: 2rem 3rem; }
+            #nmaX { text-align: left; }
+            .isih.nav-isih #nmaX { text-align: center; }
+        }
+        @media (min-width: 1024px) {
+            .cuy { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body class="badan">
+    
+    <header class="navigasi">
+        <ul class="navigasi-daftar">
+            <li class="navigasi-item"><a id="bukaPenulis">Penulis</a></li>
+            <li class="navigasi-item"><a id="bukaTujuan">Tujuan</a></li>
+            <li class="navigasi-item"><a id="bukaCatatan">Catatan</a></li>
+            <li class="navigasi-item"><a id="bukaKontak">Contact</a></li>
+        </ul>
+    </header>
+
+    <div class="peringatan">D.D.U AKAN RILIS PADA 15 FEBRUARI 2026</div>
+
+    <section class="utama">
+        <div class="potoWad">
+            <img src="pic.png" alt="Digital Divides Us" class="gbrX">
+        </div>
+        <h2 class="judulX">Welcome to <br>Digital Divides Us Universe</h2>
+        <div class="narasi-wadah">
+            <p id="narasi-teks" class="narasi singkat">Kisah ini berpusat pada Rangga, remaja berpenampilan bule yang hidupnya serba pas-pasan. Ia berjuang menghidupi keluarganya dengan menjual majalah buatannya sendiri, sambil menavigasi kehidupan sekolah yang keras. Satu-satunya hal yang membuatnya bertahan adalah Nazwa, seorang gadis pendiam yang menjadi sumber kebahagiaan sederhananya. Di antara mereka, ada Satria si perundung, Azka si badut kelas, dan Zidan, murid misterius yang tak banyak bicara.
+            <br><br>
+            Ketenangan itu hancur saat fitnah keji tentang Nazwa disebar melalui akun Instagram palsu atas nama Azka. Seisi sekolah menyalahkannya, tapi tak lama, teror berlanjut dengan pembajakan akun Zoom Della di tengah pelajaran. Tanpa ada tersangka yang jelas, kepanikan dan saling curiga pun menyebar luas, menjadikan Azka sebagai kambing hitam utama dari semua kekacauan.
+            <br><br>
+            Tak tega melihat ketidakadilan, Rangga maju membela Azka, namun tindakannya justru menjadi bumerang. Ia menjadi target perundungan baru dan dikucilkan. Nazwa, yang merasa tindakan Rangga justru membuat sorotan padanya makin menyakitkan, memintanya untuk berhenti, menjebak Rangga dalam posisi yang serba salah.
+            <br><br>
+            Merasa buntu, Rangga bersama Arkan yang cerdas dan Naila, sahabat Nazwa, akhirnya bekerja sama secara diam-diam. Mereka mulai mengamati Zidan setelah menyadari keanehan perilakunya, namun setiap upaya pengintaian mereka selalu gagal dengan cara yang konyol.
+            <br><br>
+            Untuk memancing pelaku sebenarnya, tim kecil ini nekat membuat akun palsu atas nama Satria. Rencana ini berhasil menciptakan kekacauan baru, namun seorang guru justru membela Zidan, membuat posisinya semakin kuat. Di tengah kebingungan itu, sebuah video viral membalik cerita, menjadikan Azka sebagai korban utama yang sesungguhnya.
+            <br><br>
+            Simpati seluruh sekolah dengan cepat beralih kepada Azka. Dalam prosesnya, Nazwa, korban yang asli, perlahan dilupakan. Merasa tak sanggup lagi, ia akhirnya menghilang tanpa kabar, sementara alamat rumahnya tersebar di sebuah forum online dengan ajakan untuk mendatanginya.
+            <br><br>
+            Ini adalah sepenggal dari kisah yang belum selesai. Nantikan kelanjutannya saat cerita ini meluncur pada <b>15 Februari 2026</b>.</p>
+            <button id="bacaLengkapNarasi">Baca Selengkapnya</button>
+        </div>
+    </section>
+
+    <header class="gila">
+        <h1 class="uwu">PARA AKTOR</h1>
+    </header>
+
+    <main class="cuy">
+        <div class="omah" data-full-desc="Kenalin. Gue Rangga. Kalo hidup ada slogannya, mungkin slogan gue kek stiker belakang angkot 'Tampang Bintang Lima, Nasib Kaki Lima'. Liat muka gue, terus coba tebak hidup gue. Pasti lo mikir, “Wih, anak orang kaya, mukanya adem, hidupnya pasti mulus kayak jalan tol.” Selamat, tebakan lo salah fatal. Gue ini bukti kalo Tuhan punya selera humor yang agak gelap. Gue dapet packaging premium, tapi isinya... edisi subsidi.
+
+Nyokap gue itu malaikat yang salah ngambil belokan pas mau ke surga, akhirnya nyangkut di rumah petakan kami. Dia yang nanggung semuanya. Terus bokap gue? Oh, dia ninggalin warisan kok. Muka Indo, satu set trauma komplit, sama reputasi keluarga yang harganya lebih anjlok dari saham perusahaan bangkrut. Suara tembakan itu bonusnya, nempel di otak gue kayak stiker 'Keluarga Bahagia' di kaca belakang angkot, gak bisa dicopot. Makanya gue mending diem. Suara keras dikit aja, otak gue langsung error, dan lidah gue sama huruf 'R' langsung ngajak gelut. Hasilnya? Gue ngomong kayak lagi kumur-kumur pake bensin. Mending diem, kan? Lebih hemat harga diri.
+
+Jadi, gue harus gerak. Hobi gue jadi sumber penghasilan, yaitu ngumpulin berita absurd soal tuyul nyolong jemuran, gambar-gambar, gue satuin jadi majalah fotokopian jelek namanya 'Warta Gembel'. Gue jual keliling. Kenapa? Karena Natasya, adek gue, gak boleh tau rasanya nahan laper sampe sore. Dia harus punya masa depan yang lebih baik dari sekadar bayang-bayang bapaknya yang gagal.
+
+Jadi ya gitu kepribadian gue. Dari luar, lo liat gue kayak karakter utama di film indie. Diem, misterius, tatapan nanar menembus cakrawala. Keren, kan? Padahal di dalem sini, otak gue isinya bukan pemikiran filosofis. Cuma ada suara kalkulator lagi ngitung: “Oke, sisa duit cukup buat nasi telor. Kuota buat warnet, ngutang dulu ke Pak Yanto.” Prioritas, Bro. Prioritas.">
+            <div>
+                <img src="rangga.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Rangga V. Febrian</h2>
+                <p class="cetk">Si Bule Miskin</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Haii~ Kenalin, aku Nazwa Elvarine! ✨ Katanya sih aku ini orangnya adem, kayak ubin masjid pas siang-siang bolong gitu, hehe 🕌. Mungkin karena di rumah suasananya juga anget banget, kayak pelukan selimut pas lagi hujan.
+
+Ayahku itu psikolog, jadi di rumah aku lebih sering diajarin cara dengerin orang daripada cara ngomong. Seru, lho! Jadi tau kalo orang diem itu bukan berarti sombong, mungkin lagi mikirin cicilan emaknya 🤭. Terus kakak-kakakku itu partner in crime-ku banget! Dari main hantu-hantuan pake selimut sampe perang kecoa mainan, semua udah kita cobain wkwkwk. Mereka yang ngajarin aku kalo hidup itu harus penuh sama ketawa, walaupun kadang ketawanya gara-gara hal-hal aneh.
+
+Oh iya, jangan terkecoh sama mukaku yang keliatan kalem yaa~. Karakter favoritku itu Kuromi 😈. Lucu tapi ada rebel-rebelnya gitu, kan? Sama kayak aku… dikit, hehe. Tapi aku juga suka banget dengerin lagu-lagu K-pop, apalagi kalo udah liat fotonya Jin BTS, duhh rasanya pengen aku jadiin pajangan di kamar 💖.
+
+Hobiku. Hmm… selain ngoleksi stiker lucu sama dengerin musik, aku suka bikin video-video aneh. Pernah lho aku cosplay jadi Masha pake bedak bayi sampe mukaku putih semua. Hasilnya ancur banget, tapi bikin ngakak sendiri 😂.
+
+Buat aku, dunia itu simpel. Selama masih ada temen buat diajak ketawa, kucing oren buat dikejar-kejar, sama boba rasa coklat, semuanya bakal baik-baik aja kok ✨. Tujuan hidupku. Gampang. Pengen liat semua orang di sekitarku bisa ketawa lepas, kayak aku pas lagi liat video kucing kejepit. Itu aja udah cukup banget">
+            <div>
+                <img src="nazwa.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Nazwa Elvarine A.</h2>
+                <p class="cetk">Malaikat Sekolah</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Gue Satria.
+
+Lo mau tau gue kayak gimana? Gak usah repot-repot nanya. Liat aja. Cari anak yang jalannya paling gak peduli di koridor, yang seragamnya burik tapi matanya gak ada isinya. Itu gue. Gue bukan lagi manusia, kontol. Gue ini cuma sekumpulan amarah yang kebetulan bisa jalan.
+
+Latar belakang gue. Jing. Lo mau denger cerita sedih? Gak akan gue kasih. Intinya cuma satu. Bapak gue itu manusia gagal, dan nyokap gue malaikat yang takdirnya anjing banget. Dia ngajarin gue buat jadi baik, dunia ngajarin gue kalo orang baik itu cuma buat diinjek. Pelajaran selesai pas dia mati. Sejak saat itu, gue gak punya lagi yang namanya rasa kasihan. Itu barang yang udah gue buang ke tempat sampah.
+
+Sekolah ini tai anjing. Ini bukan tempat nyari ilmu. Ini tempat pamer kekuasaan bapak lo. Kemarin gue liat si babi nonjok adek kelas, besoknya dia cuma dapet teguran 'jangan diulangi lagi ya, nak' karena bapaknya baru nyumbang AC buat ruang guru. Gue. gue telat bayar SPP sehari aja, langsung diomelin di depan kelas kayak gue ini penjahat negara.
+
+Negara yang gak pantes dibilang negara ini. Tiap Senin lo disuruh hormat bendera kayak orang bego, disuruh ngapalin Pancasila, padahal isinya cuma tulisan di kertas toilet, sama-sama gak dianggep. Rakyatnya JUGA Bangsat semua. Lo coba cari sepi di musala, lagi mau ngadep ke atas, tiba-tiba dari luar speaker hajatan meledak, suaranya kayak teriakan Iblis. Belum selesai itu, ondel-ondel babi dateng bawa kecrekan, mukanya lebih serem dari Lucifer. Demen banget ngegangguin kekhusyukan sholat gue, anjing.
+
+Lihat aja di berita. Anak pejabat ngehajar orang sampe koma, bapaknya senyum-senyum di depan kamera, besoknya kasusnya ilang. Gue. gue dulu cuma mau beli nasi padang pake sisa tabungan, malah dibilang gak tau diri sama bapak gue sendiri. Bikin KTP aja dipersulit kalo gak ngasih uang rokok. Lo pikir gue gak liat semua kebusukan itu.
+
+Jadi sifat gue gimana. Gak usah ditebak. Gue brutal. Gue gak punya sabar. Dan gue gak punya ampun. Lo pikir gue ini penjahat. Salah besar. Di tengah negara yang isinya badut-badut munafik ini, gue justru yang paling waras. Gue gak pake topeng sabar atau ikhlas. Gue gak nyebar fitnah di belakang kayak banci. Kalo gue benci muka lo, gue ancurin di depan. Gak pake drama. Gue ini tagihannya. Karma versi instan yang dateng gak pake permisi. Jadi kalo lo masih pengen liat matahari besok pagi... mending lo nunduk. Paham, ngentot?.">
+            <div>
+                <img src="satria.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Satria Darmawan</h2>
+                <p class="cetk"><a href='https://www.mediafire.com/file/aebxlppz6hm8tai/Gue+Satria.docx/file' target='_blank' rel='noopener noreferrer' style='color: var(--aksen1); font-weight: bold; text-decoration: underline;'>Dendam Neraka.</a></p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Perkenalkan dengan Main Character, Zidan.
+
+Itu nama gue. Sang protagonis. Kalian semua. kalian cuma NPC. Beneran. Dialog kalian itu-itu aja, skripnya lebih gampang ditebak dari alur anime slice-of-life murahan. Bangun, sekolah, kantin, pulang. Looping tanpa henti. Kalian pikir hidup kalian penuh warna? Salah. Kalian cuma karakter figuran di game yang bahkan gak punya side quest.
+
+Gue diem bukan karena gue pemalu atau gak punya skill sosial. Please, deh. Gue lagi grinding. Gue lagi observasi. Ngapain gue buang-buang MP buat ngeladenin slime level 1 kayak kalian?. Gak ada experience points yang gue dapet. Omongan kalian cuma filler, gak ada hubungannya sama main story. Mending gue diem, sambil ngumpulin data, nyusun build item yang sempurna buat late game.
+
+Latar belakang gue. Gak penting. Anggap aja gue MC yang lagi kejebak di fase prolog paling ngebosenin sedunia. Gue nungguin di-summon ke dunia lain, tapi kayaknya portalnya lagi maintenance. Jadi yaudah, gue nikmatin aja tutorial ini sambil ngeanalisis kelemahan world-building di sekitar gue. Satria itu cuma mini-boss tipe berserker yang pola serangannya monoton.
+
+Gengnya Luna cuma hiasan visual, gak punya stats. Dan Rangga. dia karakter tipe hero gagal, stats-nya salah alokasi semua, niatnya gede tapi eksekusinya ampas.
+
+Dunia ini cuma sandbox game yang jelek. Dan gue, gue udah baca semua walkthrough dan spoiler-nya. Gue liat semua bug di sistem kalian. Kalian pikir gue gak ngapa-ngapain di pojokan? Salah lagi. Gue lagi nyatet. Gue lagi nulis lore-nya. Kalian semua cuma bagian dari background story gue, cuma buat nambah-nambahin daftar karakter.
+
+Jadi kalo kalian liat gue diem, itu bukan karena gue aneh. Gue lagi nunggu. Nungguin story arc gue dimulai. Dan pas saatnya tiba, kalian jangan kaget kalo peran kalian di cerita ini… cuma jadi mob yang dikorbanin buat plot twist. Kalian cuma NPC. Inget itu.">
+            <div>
+                <img src="zidan.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Zidan Romansyah</h2>
+                <p class="cetk">NPC Depan Layar</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Gue Arkan. Dan tugas gue di dunia ini kayaknya simpel. Jadi orang waras satu-satunya di tengah sirkus.
+
+Lo mau tau keluarga gue. Bayangin aja makan malem, tapi yang dibahas bukan sinetron, tapi kenapa tagihan listrik bulan ini naik 7%. Nah, itu rumah gue. Makanya otak gue jadi kayak gini. Isinya bukan perasaan, tapi flowchart. Kalo A, maka B. Kalo B, maka kemungkinan besar si C bakal nangis.
+
+Gue diem bukan karena gue malu atau ansos. Gue diem karena obrolan kalian itu 90% isinya data sampah. Gosip si Luna, dramanya si Satria... buat gue itu bukan drama tapi itu sebuah data. Gue suka nyari polanya. Kenapa si A tiba-tiba baik sama si B. Oh, ternyata dia mau minjem duit. Kalian liat kekacauan, gue liat sebab-akibat. Kalian panik, gue bikin hipotesis. Ironisnya, gue mungkin orang yang paling ngertiin drama kalian, justru karena gue gak pernah ngerasainnya.
+
+Jadi, kenapa gue ikut campur di semua kekacauan ini? jawabannya sederhana. Karena ada error di database kalian. Sesuatu yang ngaco, yang ngerusak keseimbangan. Dan gue, benci banget sama anomali yang gak bisa dijelasin. Rangga itu intuisi berjalan, otaknya korslet tapi kadang bener. Naila itu kunci akses sosial. Gue otaknya. Nantinya, aliansi kami bukan soal persahabatan. Ini... proyek riset. Gue gak nyari keadilan. Gue cuma nyari jawaban. Karena teka-teki yang gak terpecahkan itu jauh lebih ngeganggu daripada semua kebisingan di kelas. Over and out.">
+            <div>
+                <img src="arkan.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Arkan Khafian</h2>
+                <p class="cetk">Ensiklopedia Berjalan</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Gue Naila. Kalo disuruh ngejelasin diri sendiri, gue ini tipe cewek yang batrenya awet kalo dipake buat ngobrol sama satu orang, tapi langsung boros kalo disuruh basa-basi sama segerombolan. Gue bukan sombong, gue cuma... alergi sama obrolan gak penting. Gitu aja sih.
+
+Latar belakang gue. Gak ada yang spesial sebenernya, gue cuma lebih nyaman di dunia gue sendiri. Dunia gue itu isinya musik, buku, sama pikiran-pikiran random yang kalo diomongin ke orang lain mungkin bakal dikira aneh. Gue butuh waktu lama buat bisa ngerasa nyambung sama orang. Jadi sekalinya gue nemu yang klop, gue bakal jagain bener-bener. Gue gak punya banyak temen deket, tapi buat satu orang yang udah gue anggap sahabat, loyalitas gue seratus persen, gak pake diskon.
+
+Sifat gue. Gue ini campuran aneh antara cuek sama peduli banget. Gue bisa cuek bebek sama gosip satu sekolah, tapi gue bisa panik setengah mati kalo temen gue bales chat-nya lama. Gue juga jujur, kadang terlalu jujur sampe nusuk. Gue lebih milih ngomong pait di depan daripada manis-manis di belakang.
+
+Orang bilang gue tegas, mungkin karena gue gak takut buat ngomong apa yang gue pikirin. Gue cuma ngerasa, hidup ini udah cukup rumit tanpa harus ditambahin kepura-puraan. Jadi ya, ini gue. Simpel, setia, dan kadang-kadang, galaknya bisa setingkat sama emak-emak yang antreannya diselak.">
+            <div>
+                <img src="naila.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Naila Meidina</h2>
+                <p class="cetk">Sahabat terbaik</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Woy! Azka Gobles di sini. Iya itu nama beneran. Protes? Protes aja sana ke emak gue yang ngasih. Katanya biar hoki. Hoki gundulmu! yang ada gue jadi target bully dari lahir! Tapi yaudahlah, hidup itu emang lawak kan. Kalo lo serius terus, nanti mati muda, terus jadi setan penasaran yang gentayangannya cuma di toilet guru. Gak asik.
+
+Lo mau tau gue kayak gimana? Gampang. Liat aja yang paling berisik. Yang kalo jam kosong malah konser di atas meja. Yang kalo gabut, penghapus bisa nyasar ke kepalanya si Ridho. Kenapa? ya soalnya kepalanya enak buat jadi sasaran tembak! Hobi gue itu simpel. Bikin onar. Ngelawak. Sama malakin gorengan temen. Misi gue cuma satu. Ngebantai kebosanan.
+
+Tapi lo kira gue ketawa terus. HAHAHA. Itu cuma topeng, bro. Di rumah, bokap gue itu levelnya udah kayak juri Idola. Liat gue nyengir dikit, pertanyaannya, “Ranking berapa kamu sekarang?”. Bangke. Ketawa gue di rumah itu ada harganya. Harganya nilai bagus. Kalo nggak, siap-siap aja dengerin ceramah soal jadi gembel di masa depan.
+
+Makanya di sekolah gue edan-edanan. Ini tempat gue napas. Di sini orang ketawa karena gue, bukan ngetawain gue. Ironis gak sih?Orang yang paling sering bikin masalah, ternyata lagi nyari damai. Gue ini kayak pelawak yang materinya dari derita sendiri. Kalian ngakak, gue yang ngenes. Jadi kalo lo liat gue lagi aneh, lagi goblok... maklumin aja ya. Gue lagi terapi. Terapi gratis yang efek sampingnya bikin satu sekolah pengen gaplak gue.">
+            <div>
+                <img src="azka.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Azka Gobles</h2>
+                <p class="cetk">Badut kelas </p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Haii semuaa~! Kenalin, aku Luna. Pasti kalian udah tau aku, kan? Aku yang biasanya suka share OOTD paling update di story, atau yang suka bikin konten-konten seru bareng sirkel aku. Hehe. Hidup itu harus aesthetic, guys! Kalo gak, buat apa punya kamera HP bagus-bagus?.
+
+Ciri-ciriku? Hmm, kata temen-temen sih aku itu the sunshine of the class. Aku suka banget bikin suasana jadi rame dan seru. Aku juga suka banget sama hal-hal yang cantik, yang rapi. Makanya, kalo liat sesuatu yang berantakan atau jelek, bawaannya pengen benerin aja. Termasuk... orang, hehe. Aku percaya, semua orang itu bisa kok jadi versi terbaik dari dirinya, asal mau dengerin saran aku.
+
+Latar belakangku. Alhamdulillah, aku bersyukur banget. Papa sama Mama selalu support aku buat jadi apa aja yang aku mau, selama itu bikin aku happy dan tentunya, keliatan bagus di depan orang lain. Dari kecil aku udah diajarin, penampilan itu nomor satu. 
+
+First impression matters, you know. Makanya aku selalu usaha buat tampil sempurna, dari ujung rambut sampe ujung kuku. Bukan buat siapa-siapa, tapi buat diri aku sendiri. Karena kalo kita keliatan bagus, kita juga jadi ngerasa bagus. Bener, kan?.
+
+Kepribadianku. Aku itu orangnya pedulian banget! Aku gak bisa liat temen aku sedih atau salah jalan. Pasti langsung pengen aku bantu, aku kasih saran, biar dia gak malu-maluin dirinya sendiri. Kadang omongan aku emang suka jujur banget, tapi itu semua demi kebaikan, lho! 
+
+Tujuanku simpel kok. Aku cuma pengen semua hal di sekitarku itu seimbang dan indah. Kayak feed Instagram yang rapi gitu, lho. Dan aku… tentu saja, jadi center-nya. 😉✨">
+            <div>
+                <img src="luna.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Luna Octavia</h2>
+                <p class="cetk">Ratu Drama</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Perkenalkan, saya Dafa. Mungkin kalian kenal saya sebagai ketua kelas. Tapi peran saya lebih dari itu. Saya ini, bisa dibilang, arsitek. Tugas saya bukan cuma memimpin, tapi membangun dan menjaga citra kelas kita agar tetap terlihat solid, berprestasi, dan yang paling penting, terhormat di mata para guru dan sekolah.
+
+Karakteristik saya. Saya pendengar yang baik. Saya observatif. Saya selalu mencoba memahami semua sisi sebelum mengambil keputusan. Di saat yang lain terbawa emosi, saya tetap tenang. Bukan karena saya tidak punya perasaan. Justru karena saya terlalu peduli dengan dampaknya. Setiap tindakan, setiap kata, punya konsekuensi. Dan tugas saya adalah memastikan konsekuensi itu selalu positif untuk kebaikan bersama, terutama untuk reputasi kelas.
+
+Latar belakang saya membentuk saya. Saya dididik untuk selalu jadi yang terbaik, bukan cuma dalam nilai, tapi juga dalam memimpin. 'Sebuah kapal yang hebat tidak akan berarti jika kaptennya tidak bisa mengendalikan arah,' begitu kata ayah saya. Karena itu, saya tidak suka kekacauan. Saya tidak suka drama personal yang bisa merusak harmoni. Konflik internal itu seperti kanker, kalau dibiarkan, akan menggerogoti seluruh tubuh. Harus ditangani. Cepat, dan efisien.
+
+Sifat saya. Saya diplomatis. Saya percaya semua masalah bisa diselesaikan dengan komunikasi dan strategi yang tepat. Saya bukan tipe orang yang main pukul atau main tuduh. Itu cara-cara primitif yang hanya akan meninggalkan luka dan merusak citra. Tujuan saya jelas. Saya ingin kelas kita dikenang bukan sebagai kelas yang paling rusuh atau penuh drama, tapi sebagai kelas yang paling kompak dan berkelas. Apapun yang terjadi di dalam, keluar harus terlihat sempurna. Dan untuk mencapai itu... kadang, kita harus membuat beberapa keputusan sulit. Semua demi nama baik. Semua demi kita.">
+            <div>
+                <img src="dafa.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Muhammad Daffa</h2>
+                <p class="cetk">Pemimpin</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Hai, aku Keyla. Aku... hmm, gimana ya ngejelasinnya. Mungkin aku ini tipe orang yang lebih suka dengerin daripada ngomong. Aku bukan pendiem kayak Zidan ya, aku suka banget ngobrol! Tapi cuma sama orang-orang yang udah aku percaya, kayak Luna sama Naila, dan terutama Nazwa. Di sirkel aku, aku mungkin bukan yang paling menonjol, tapi aku yang paling sering khawatir, hehe.
+
+Latar belakangku biasa aja, kok. Aku cuma anak biasa dari keluarga yang selalu ngajarin aku buat hati-hati. ‘Jangan gampang percaya sama orang, Key. Dunia itu gak seindah yang kamu kira.’ Mungkin karena itu, aku jadi orang yang agak parnoan. Aku selalu mikirin kemungkinan terburuk dari segala sesuatu. Bukan pesimis, lho! Cuma... waspada. Biar gak kaget aja kalo tiba-tiba ada masalah.
+
+Kepribadianku itu kayak alarm kebakaran. Sensitif banget. Kalo ada tanda-tanda bahaya sekecil apapun, aku yang pertama kali panik. Aku benci banget sama ketidakpastian. Makanya aku suka banget kalo semuanya jelas, semuanya aman. Aku nggak suka ribut, aku nggak suka konflik. Kalo ada masalah, rasanya aku pengen ngumpet di bawah selimut aja sampe semuanya selesai.
+
+Sifatku. Aku ini setia banget. Buat temen-temenku, terutama Nazwa, aku rela jadi apa aja. Jadi pendengar, jadi tameng, jadi alarm. Karena mereka itu zona nyaman aku. Kalo mereka kenapa-napa, artinya dunia aku juga jadi gak aman. Tujuanku sebenernya simpel. Aku cuma pengen hidup tenang, damai, bareng sama temen-temenku, tanpa harus ada drama-drama aneh yang bikin pusing. Gak salah, kan, punya harapan kayak gitu?.">
+            <div>
+                <img src="keyla.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Keyla Damayanti</h2>
+                <p class="cetk">Si Parnoan</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+         <div class="omah" data-full-desc="Woy! Bunga di sini. Gak pake basa-basi, hidup gue itu simpel. Gue liat drama, gue kepo. Gue dapet info, gue sebar. Kenapa? Karena informasi itu kekuatan, cuy! Dan jadi orang pertama yang tau segalanya itu… rasanya enak banget. Kayak lo dapet bocoran jawaban ujian sehari sebelum ujiannya mulai.
+
+Latar belakang. Biasa aja, gak ada yang seru buat digosipin. Mungkin karena itu gue jadi haus drama. Di sekolah kan panggungnya lebih gede, aktornya lebih banyak, ceritanya lebih seru. Gue ini bukan cuma penonton, gue sutradaranya. Gue yang nentuin angle mana yang paling menarik, gue yang nambahin bumbu biar makin sedep. Gue bukan tukang fitnah, ya. Gue ini… jurnalis investigasi. Tapi versi lebih cepet dan lebih gak peduli sama fakta.
+
+Sifat gue. Gue ini social butterfly. Gue bisa ngobrol sama siapa aja, dari geng preman sampe geng kutu buku. Kenapa? Biar akses informasi gue lancar jaya. Gue ramah, gue gampang bergaul. Tapi jangan salah, di balik senyum gue, otak gue lagi nge-scan. “Hmm, dia abis nangis, ya? Matanya bengkak. Harus gue cari tau kenapa.” Gue gak jahat. Gue cuma… punya rasa ingin tahu yang di atas rata-rata.
+
+Tujuan gue. Simpel. Gue gak pengen jadi yang paling pinter atau paling berkuasa. Gue cuma pengen jadi yang paling… tau. Karena kalo lo tau segalanya, lo gak akan pernah ketinggalan. Lo gak akan pernah jadi korban. Dan yang paling penting, hidup lo gak akan pernah ngebosenin. Jadi kalo lo punya gosip seru, jangan disimpen sendiri. Sini, bagi-bagi. Gue siap dengerin, kok. Dan siap nyebarin juga, tentunya. 😉">
+            <div>
+                <img src="bunga.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Bunga Puspita</h2>
+                <p class="cetk">Sang Ratu Gosip</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Woy, gue Haikal. Lo mau tau soal gue? Gampang. Liat aja di mana Satria ada, gue pasti gak jauh-jauh dari situ. Gak usah dibilang penjilat atau kacung. Ini namanya strategi bertahan hidup, bro. Di hutan belantara kayak sekolah ini, lo harus pinter-pinter milih mau ikut gerombolan mana. Dan gue, milih gerombolan yang paling atas di rantai makanan. Simpel, kan?
+
+Latar belakang gue? Gak ada yang spesial. Gue cuma anak biasa yang males cari ribut, tapi juga gak mau diinjek-injek. Di rumah, gue anak tengah. Tau kan rasanya jadi anak tengah? Sering gak dianggap. Makanya di sekolah, gue nyari pengakuan. Gabung sama yang paling berkuasa itu cara paling cepet buat keliatan ada. Lo ngerti lah.
+
+Sifat gue itu adaptif. Kayak bunglon. Kalo bos lagi mode ngamuk, ya gue ikut-ikutan jadi kompor. Kalo bos lagi adem, gue jadi kipas angin. Gue jago baca situasi, gue tau kapan harus ngomong, kapan harus diem, dan kapan harus ketawa paling kenceng biar suasana makin rame. Gue bukan pemimpin, gue akuin itu. Gue ini support role terbaik. Tugas gue nge-assist, ngasih umpan, sama mastiin bos gue selalu keliatan keren.
+
+Tujuan gue. Gak muluk-muluk, anjing. Gue cuma mau lulus dari neraka ini dengan selamat, tanpa harus babak belur tiap hari. Gabung sama Satria itu tiket keamanan gue. Gue dapet perlindungan, dapet panggung, dan yang paling penting, gue bukan lagi si Haikal yang gak keliatan. Gue jadi temennya Satria. Udah, itu aja cukup buat gue.">
+            <div>
+                <img src="haikal.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Haikal Saputra</h2>
+                <p class="cetk">Penjilat</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Gue Fathir. Temennya Satria. Kalo lo nanya posisi gue di geng apaan, gue juga bingung jawabnya. Mungkin gue ini bagian tim hore-nya kali ya. Bagian yang tugasnya ngeramein suasana sama ngetawain orang paling kenceng. Seru aja gitu.
+
+Latar belakang. Ah, biasa aja. Rumah gue sepi, makanya gue nyari rame di sekolah. Gue gak suka yang diem-diem gitu, ngebosenin. Mending liatin orang lain ribut, kan, lumayan dapet tontonan gratis. Gue gak beneran jahat, kok. Gue cuma… iseng. Sumpah, tangan gue ini kadang suka punya pikiran sendiri. Tau-tau udah nyenggol tas orang aja.
+
+Karakter gue ya gini. Ngikut aja. Kalo ada bos, ya gue pasang muka sangar. Kalo lagi gak ada, ya gue jadi cupu lagi. Aman, bro. Yang penting tau diri. Gue ini tipe yang liat ada momen bagus buat ngeledek, ya gue sikat. Gak pake mikir dua kali. Hidup itu dibawa asik aja.
+
+Tujuan. Apaan tuh. Gue gak punya tujuan-tujuan keren kayak gitu. Gue cuma pengen sekolah ini gak garing. Ada bahan ketawa tiap hari. Ada yang bisa digangguin. Udah, itu aja cukup buat bikin gue seneng. Gue cuma pengen jadi bagian dari sesuatu, gak peduli itu geng preman atau grup lawak. Soalnya sendirian itu sumpah, gak banget.">
+            <div>
+                <img src="fathir.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Fathir Nugroho</h2>
+                <p class="cetk">Minion cemen</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Gue Gilang. Sebelum semua kekacauan ini dimulai, hidup gue itu lurus. Lurus banget, malah. Gue anak dari keluarga baik-baik, gak pernah ngerasain gimana rasanya kurang. Di sekolah, gue punya temen-temen. Gue bukan yang paling jagoan, tapi gue dihormati. Atau setidaknya, itu yang gue kira. Dunia gue simpel. Gue pikir, kalo lo gak macem-macem, hidup lo bakal aman. Ternyata gue goblok banget.
+
+Semuanya udah disiapin buat gue, gue gak pernah tau rasanya jadi bahan omongan. Mungkin itu yang bikin gue jadi... naif. Gue ngeliat si Satria, si gembel yang sepatunya dekil itu. Di otak gue yang dangkal, dia itu aneh. Sesuatu yang gak pantes ada di dunia gue yang rapi. Jadi gue ganggu dia. Gue kira itu lucu, cuma becandaan anak sekolah biasa. Gue sama sekali gak sadar kalo gue lagi nyiram bensin ke api yang udah nyala.
+
+Sifat gue emang bukan pemimpin. Gue cuma suka jadi bagian dari gerombolan yang aman, yang populer. Gue ngerasa nyaman kalo dikelilingin orang. Tapi setelah dihajar Satria, gue baru sadar. Gak ada yang namanya aman. Gak ada yang namanya temen. Yang ada cuma siapa yang lebih kuat, dan siapa yang jadi mangsa.
+
+Tujuan gue sekarang berubah total. Dulu gue cuma pengen lulus dengan tenang. Sekarang, gue cuma pengen bertahan. Gue udah ngerasain gimana rasanya jadi keset. Gue nempel sama Satria sekarang bukan karena gue hormat sama dia. Anjing, gue benci setengah mati sama dia. Gue cuma lagi nyuri ilmunya. Belajar cara mainnya. Belajar gimana caranya jadi yang gigit, biar gue gak akan pernah lagi jadi yang digigit. Dunia sempurna gue udah ancur. Sekarang gue cuma lagi nyoba bangun lagi, tapi pake pondasi yang beda. Pondasi yang terbuat dari rasa takut.">
+            <div>
+                <img src="gilang.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Gilang Prasetyo</h2>
+                <p class="cetk">Samsak hidup</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+        <div class="omah" data-full-desc="Hai, semuanya. Nama aku Della. Aku… sebenernya agak malu kalo harus ngejelasin diri sendiri. Aku cuma anak biasa aja, kok. Kalo kata guru-guru, aku ini murid teladan. Mungkin karena aku emang suka kalo semuanya rapi, teratur, dan damai.
+
+Di rumah, sekarang cuma ada aku sama Ibu. Ayah udah pergi duluan pas aku awal-awal masuk SMP. Jadi… kami berdua belajar jadi tim yang kuat. Ibu itu pahlawan aku. Kami tinggal di gang kecil, hidupnya sederhana aja. Justru karena itu, Ibu selalu ngajarin kalau kebaikan itu hal paling penting. Katanya, kalau kita gak punya banyak hal buat dikasih, seenggaknya kita masih punya kebaikan. Dan aku… aku percaya banget sama itu.
+
+Sifat aku ya gini. Aku gak suka ribut, beneran deh. Liat orang lain berantem aja rasanya ikut pusing. Aku lebih suka ngebantu. Kalo liat ada temen yang kesusahan, rasanya pengen langsung nolongin. Bukan buat cari muka atau apa. Aku cuma ngerasa... seneng aja kalo bisa bikin orang lain senyum. Mungkin karena itu, temen-temen bilang aku ini Siswi Alim. Agak berlebihan sih, hehe. Aku cuma Della.
+
+Karakteristik aku. Hmm… aku mungkin agak terlalu positif thinking kali ya. Aku selalu coba liat sisi baik dari semua orang. Aku percaya, gak ada orang yang bener-bener jahat. Paling cuma lagi salah jalan aja.
+
+Tujuan aku di sekolah ini sebenernya simpel banget. Aku cuma pengen belajar yang bener, dapet banyak temen, dan jadi orang yang berguna. Aku pengen semua orang di kelasku bisa akur dan saling tolong. Karena sekolah kan rumah kedua kita, harusnya jadi tempat yang nyaman, bukan tempat buat saling sakitin. Aku yakin kok, kalo kita semua coba buat lebih ngerti satu sama lain, semuanya pasti bakal baik-baik aja.">
+            <div>
+                <img src="della.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Della</h2>
+                <p class="cetk">Siswi Alim</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+         <div class="omah" data-full-desc="Selamat pagi, anak-anak. Nama saya Rini, guru TIK kalian. Dunia saya itu simpel. Isinya algoritma, data, dan logika. Semuanya terukur dan punya aturan. Satu tambah satu hasilnya dua, tidak pernah jadi tergantung perasaan.
+
+Latar belakang saya dari era di mana internet itu barang langka. Makanya saya antusias dengan teknologi. Saya percaya teknologi itu alat, bisa dipakai untuk hal luar biasa, atau untuk kekacauan luar biasa. Tugas saya bukan sekadar mengajarkan kalian cara klik kanan, tapi juga tanggung jawab di baliknya. Karena di dunia digital, jejak sekecil apapun itu abadi.
+
+Sifat saya observatif. Saya lebih suka mengamati daripada langsung menghakimi. Saya melihat kelas kalian bukan sebagai sekumpulan murid, tapi sebagai sebuah jaringan. Ada node yang jadi pusat, ada yang cuma jadi repeater, dan ada juga yang koneksinya sering error. Saya melihat semua pola itu. Saya mungkin tidak tahu semua gosip kalian, tapi saya bisa lihat siapa yang berbohong dari cara mereka mengetik.
+
+Tujuan saya sebagai guru tidak muluk-muluk. Saya hanya ingin kalian melek. Bukan hanya melek teknologi, tapi juga melek etika. Saya ingin kalian mengerti bahwa di balik setiap akun anonim, ada manusia. Di balik setiap komentar jahat, ada konsekuensi. Saya mungkin tidak bisa menyelesaikan semua drama di kelas kalian. Tapi saya bisa memberi kalian senjata. Senjata paling ampuh di era sekarang. Kemampuan untuk berpikir sebelum klik. Itu saja. Jika kalian bisa itu, tugas saya berhasil.">
+            <div>
+                <img src="rini.png" alt="Foto Karakter" class="poto">
+                <h2 class="nma">Bu Rini</h2>
+                <p class="cetk">Figur guru yang kompeten</p>
+                <p class="desc-singkat"></p>
+            </div>
+            <button class="uhuy">Selengkapnya</button>
+        </div>
+       
+    </main>
+
+    <div class="peti" id="char-peti">
+        <div class="isih">
+            <button class="tutup">&times;</button>
+            <div class="potoWad-modal">
+                <img src="" alt="Foto Karakter Penuh" id="potoX">
+            </div>
+            <div class="teksWad">
+                <h2 id="nmaX" class="anim-teks">Nama Karakter</h2>
+                <p id="descX" class="anim-teks">Deskripsi lengkap akan muncul di sini.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="peti" id="penulis-peti">
+        <div class="isih nav-isih">
+            <button class="tutup">&times;</button>
+            <div class="teksWad">
+                <h2 class="anim-teks">Penulis</h2>
+                <img src="ddu.png" alt="Foto Penulis" style="display: block; margin: 0 auto 1.5rem; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--oren1); box-shadow: 0 5px 20px var(--bayang);">
+                <p class="anim-teks" style="text-align: center;">Nama lengkap gue Adzan Ahlil Fiqri, panggil aja Adzan. Denger nama itu, lo pasti bayangin anak soleh yang hobinya ngingetin jadwal sholat. <br>
+                 Nyokap emang doanya kelewat optimis. Dia ngarepnya dapet anak alim karena gue lahir pas Subuh, hari Senin, tanggal 15 Februari 2010. Tapi yang keluar malah justru kelewat ekspetasi... <br>
+Orang-orang di luar sana, mereka yang lagi sibuk di grup WA, yang dulu ngomentarin hidup orang lain seolah paling ngerti cuma kenal gue dari luarnya aja. Mereka gak pernah tau kalo di balik semua itu, gue punya kerjaan lain yang gak bakal pernah masuk di buku rapor. <br>
+Gue ini penulis. <br>
+Bukan penulis yang ceritanya ada di rak toko buku, bukan juga modal asal comot AI atau internet. Murni gue nulis karena ada hal-hal di luar kendali yang maksa gue buat nulis, terkadang beberapa serpihan hidup terlihat di situ. Gue coba campurin karakter dan latar fiksi (yang mungkin harapan gue akan hal itu) buat bersuara beneran tanpa diomongin lagi. <br> 
+Kisah si bule kere yang jualan koran bekas, yang naksir cewek paling adem satu sekolah. Itu bukan gue. Gue cuma kasih suara gue ke dia. Biar semua niat baik yang pernah ada di kepala gue, semua versi SEANDAINYA yang gagal gue lakuin, nemuin rumahnya di karakter dia. <br>
+Dan yang satu lagi. Si preman yang akhirnya jadi penguasa sekolah. Luka gue yang paling getir, kenangan soal tawar-menawar harga diri di ruang tamu, semua ampas hidup yang gue telen bulet-bulet, gue titipin ke dia. Biar dia yang nanggung bebannya di atas kertas. <br>
+Nulis itu bukan hobi. Itu cara gue biar gak ikut tenggelam. Cara gue napas pas udara di sekitar gue rasanya udah abis. Tiap karakter yang gue ciptain, tiap kejadian yang gue susun, itu cuma cara gue nambal sobekan di dalem, biar isinya gak tumpah berceceran. <br>
+Jadi kalo lo nyari gue di cerita-cerita itu, lo gak akan pernah nemuin. Gue bukan tokohnya. <br>
+Gue cuma yang pegang spidol. Yang nentuin siapa yang ancur duluan.  </p>
+ 
+            </div>
+        </div>
+    </div>
+    
+    <div class="peti" id="tujuan-peti">
+        <div class="isih nav-isih">
+            <button class="tutup">&times;</button>
+            <div class="teksWad">
+                <h2 class="anim-teks">Tujuan</h2>
+                <p class="anim-teks" style="text-align: center;">Tujuan gue nulis ginian... oke, gue jelasin, gak pake muter-muter. Anggep aja tulisan gue ini kayak buku panduan buat barang yang udah lo punya tapi lo gak pernah tau fungsinya apa. <br>
+
+Pertama, biar lo dapet pencerahan. Gue cuma mau ngasih liat kalo jempol lo yang lagi nge-scroll itu nyambungnya bukan cuma ke kuota, tapi ke nyawa orang. Lo pikir komen lo itu cuma tulisan iseng, cuma barisan huruf yang bakal ilang besok pagi? <br> 
+
+Sungguh kesalahan fatal... buat yang baca, tulisan itu bisa jadi batu yang nimpuk seluruh kepalanya tiap malem sebelum tidur. Biar lo ngerti, gak ada yang namanya iseng-isengan, yang ada itu cuma pasal. UU ITE No. 11 Tahun 2008 jo. UU No. 19 Tahun 2016 <br>
+
+Kedua, biar lo dapet wawasan. Gue bongkar semua mesinnya di depan lo. Gue tunjukkin gimana caranya satu foto polos bisa diubah jadi senjata mematikan. Gimana caranya bikin gerombolan orang yang tadinya waras, tiba-tiba jadi bego barengan dan siap ngebakar orang idup-idup cuma modal gosip. Biar lo tau polanya. Biar lo gak gampang lagi digiring opininya. <br>
+
+Terakhir, ini peringatan keras. Lo pikir cerita-cerita ini cuma curhattan? Salah lagi, ini gladi resik. Besok-besok, bisa jadi elo yang jadi target nyasar. Bisa jadi foto lo, nama lo, atau aib lo yang lagi dijadiin bahan ngeludah sama orang-orang yang bahkan gak kenal lo. Lo ketawa sekarang, lo ikut nge-share. Nanti pas giliran lo yang nangis-nangis di pojokan, jangan ngarep ada yang dateng jadi pahlawan. <br>
+Anggep aja ini peringatan di bungkus rokok. Lo boleh aja gak baca, tapi racunnya tetep sama.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="peti" id="catatan-peti">
+        <div class="isih nav-isih">
+            <button class="tutup">&times;</button>
+            <div class="teksWad">
+                <h2 class="anim-teks">Catatan</h2>
+                <p class="anim-teks" style="text-align: center;">Lo pasti nanya. Cerita-cerita yang barusan lo telen itu beneran kejadian, apa cuma karangan gue doang pas lagi gabut. <br>
+
+Jawabannya... dua-duanya. <br>
+
+Semua kejadian busuk yang lo baca, dihajar fitnah di internet, dihakimi rame-rame, sampe diusir dari lingkungan sendiri cuma gara-gara kesalahpahaman, itu semua ada. <br>
+
+Lo pikir di luar sana gak ada Rangga yang tiap hari berantem sama nasibnya sendiri. Lo pikir gak ada Satria yang ngumpulin rasa takut orang lain cuma biar dia ngerasa berkuasa.  <br>
+
+Buka mata lo. Mereka ada di sekeliling lo. Bahkan yang paling parah, kejadian yang gak lo sadar lo juga jadi pelakunya. Satu kali lo nge-share, satu kali lo diem pas liat temen lo diserang, itu semua bagian dari cerita ini. <br>
+
+Tapi, ada bagian-bagian yang gue pinjem.
+Gue pinjem dari tempat lain, termasuk mimpi-mimpi gue. Iya, beneran mimpi, kegabutan otak gue kalo lagi capek suka bikin film sendiri. Kadang film horor, kadang drama yang dialognya ancur-ancuran. <br>
+
+Semua adegan yang kedengerannya terlalu lebay, dialog yang terlalu puitis, kebetulan yang terlalu pas, itu semua hasil kerjaan sutradara di kepala gue pas gue lagi merem. <br>
+
+Gue aduk semuanya jadi satu adonan. Mana kejadian nyata, mana mimpi buruk yang gue tulis ulang pas bangun tidur. Mana dialog yang beneran gue denger, mana bisikan setan yang cuma ada di kepala gue. <br>
+
+Tugas lo bukan buat percaya seratus persen, tapi tugas lo itu buat misahin. Coba aja tebak. Mana tulang, mana daging, mana bumbu penyedap yang sengaja gue tambahin biar rasanya makin pait. <br>
+
+Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu cuma setipis layar HP lo.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="peti" id="kontak-peti">
+        <div class="isih nav-isih">
+            <button class="tutup">&times;</button>
+            <div class="teksWad">
+                <h2 class="anim-teks">Contact</h2>
+                <div class="kontak-modal-daftar">
+                    <a href="https://www.youtube.com/@Dzan15" class="kontak-modal-item" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg></a>
+                    <a href="https://www.instagram.com/4.dzan/" class="kontak-modal-item" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2c2.717,0,3.056,0.01,4.122,0.06c1.065,0.05,1.79,0.217,2.428,0.465c0.66,0.255,1.155,0.596,1.69,1.131 c0.535,0.535,0.876,1.03,1.131,1.69c0.248,0.638,0.415,1.363,0.465,2.428C21.99,8.944,22,9.283,22,12c0,2.717-0.01,3.056-0.06,4.122 c-0.05,1.065-0.217,1.79-0.465,2.428c-0.255,0.66-0.596,1.155-1.131,1.69c-0.535,0.535-1.03,0.876-1.69,1.131 c-0.638,0.248-1.363,0.415-2.428,0.465C15.056,21.99,14.717,22,12,22s-3.056-0.01-4.122-0.06c-1.065-0.05-1.79-0.217-2.428-0.465 c-0.66-0.255-1.155-0.596-1.69-1.131c-0.535-0.535-0.876-1.03-1.131-1.69c-0.248-0.638-0.415-1.363-0.465-2.428 C2.01,15.056,2,14.717,2,12s0.01-3.056,0.06-4.122c0.05-1.065,0.217-1.79,0.465-2.428c0.255-0.66,0.596-1.155,1.131-1.69 c0.535-0.535,1.03-0.876,1.69-1.131c0.638-0.248,1.363-0.415,2.428-0.465C8.944,2.01,9.283,2,12,2 M12,0 C9.261,0,8.889,0.011,7.818,0.061C6.74,0.111,5.823,0.283,4.966,0.63C4.113,0.973,3.37,1.407,2.628,2.15 c-0.742,0.742-1.176,1.485-1.519,2.338C0.75,5.328,0.579,6.244,0.528,7.323C0.479,8.393,0.468,8.765,0.468,11.5 c0,2.735,0.011,3.107,0.061,4.177c0.05,1.079,0.222,1.996,0.577,2.853c0.344,0.853,0.778,1.595,1.52,2.338 c0.742,0.742,1.485,1.176,2.338,1.519c0.858,0.355,1.774,0.479,2.853,0.528c1.07,0.05,1.442,0.061,4.177,0.061 s3.107-0.011,4.177-0.061c1.079-0.05,1.996-0.222,2.853-0.577c0.853-0.344,1.595-0.778,2.338-1.52 c0.742,0.742,1.176-1.485,1.519-2.338c0.355-0.858,0.479-1.774,0.528-2.853c0.05-1.07,0.061-1.442,0.061-4.177 s-0.011-3.107-0.061-4.177c-0.05-1.079-0.222-1.996-0.577-2.853c-0.344-0.853-0.778-1.595-1.52-2.338 c-0.742-0.742-1.485-1.176-2.338-1.519c-0.858-0.355-1.774-0.479-2.853-0.528C14.107,0.011,13.735,0,11,0L12,0z M12,5.833 C8.604,5.833,5.833,8.604,5.833,12s2.771,6.167,6.167,6.167s6.167-2.771,6.167-6.167S15.396,5.833,12,5.833z M12,16 c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S14.206,16,12,16z M18.167,4.167c-0.92,0-1.667,0.746-1.667,1.667 s0.746,1.667,1.667,1.667s1.667-0.746,1.667-1.667S19.087,4.167,18.167,4.167z"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="kaki">
+        <p>&copy; 2024 - 2026 Digital Divides Us. Sebuah karya orisinal oleh Adzan Ahlil Fiqri.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elms = document.querySelectorAll('.omah');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const idx = Array.from(elms).indexOf(entry.target);
+                        entry.target.style.animation = `uwih 0.6s ease-out ${idx * 100}ms forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            elms.forEach(elm => observer.observe(elm));
+
+            const bacaLengkapNarasiBtn = document.getElementById('bacaLengkapNarasi');
+            const narasiTeks = document.getElementById('narasi-teks');
+            
+            bacaLengkapNarasiBtn.addEventListener('click', () => {
+                const isSingkat = narasiTeks.classList.toggle('singkat');
+                bacaLengkapNarasiBtn.textContent = isSingkat ? 'Baca Selengkapnya' : 'Tampilkan Lebih Sedikit';
+            });
+            
+            document.querySelectorAll('.omah').forEach(card => {
+                const fullDesc = card.dataset.fullDesc;
+                const shortDescEl = card.querySelector('.desc-singkat');
+                if (fullDesc && shortDescEl) {
+                    let snippet = fullDesc.split('.')[0] + '.';
+                    if(snippet.length < 50) {
+                        snippet = fullDesc.substring(0, 150).split(' ').slice(0, -1).join(' ') + '...';
+                    }
+                    shortDescEl.textContent = snippet;
+                }
+            });
+        });
+
+        const uhuy = document.querySelectorAll('.uhuy');
+        const badan = document.querySelector('.badan');
+        const peringatan = document.querySelector('.peringatan');
+        
+        const potoX = document.getElementById('potoX');
+        const nmaX = document.getElementById('nmaX');
+        const descX = document.getElementById('descX');
+        const teksWad = document.querySelector('#char-peti .teksWad');
+
+        const allModals = document.querySelectorAll('.peti');
+
+        function openModal(modal) {
+            modal.classList.add('buka');
+            badan.classList.add('no-ges');
+            peringatan.style.transform = 'translateY(-200%)';
+            peringatan.style.opacity = '0';
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('buka');
+            if (document.querySelectorAll('.peti.buka').length === 0) {
+                badan.classList.remove('no-ges');
+                peringatan.style.transform = 'translateY(0)';
+                peringatan.style.opacity = '1';
+            }
+        }
+        
+        uhuy.forEach(tkn => {
+            tkn.addEventListener('click', () => {
+                const omah = tkn.closest('.omah');
+                const srcPoto = omah.querySelector('.poto').src;
+                const txtNma = omah.querySelector('.nma').textContent;
+                const fullDsc = omah.dataset.fullDesc;
+                const charPeti = document.getElementById('char-peti');
+                
+                nmaX.classList.remove('anim-teks');
+                descX.classList.remove('anim-teks');
+                
+                teksWad.scrollTop = 0;
+
+                potoX.src = srcPoto;
+                nmaX.textContent = txtNma;
+                descX.textContent = fullDsc.replace(/\[\s*DESKRIPSI LENGKAP .*?\]/g, "Teks deskripsi lengkap belum tersedia. Mohon kembali lagi nanti.");
+                
+                openModal(charPeti);
+                
+                setTimeout(() => {
+                    nmaX.classList.add('anim-teks');
+                    descX.classList.add('anim-teks');
+                }, 100);
+            });
+        });
+
+        const navTriggers = {
+            'bukaPenulis': 'penulis-peti',
+            'bukaTujuan': 'tujuan-peti',
+            'bukaCatatan': 'catatan-peti',
+            'bukaKontak': 'kontak-peti'
+        };
+
+        for (const triggerId in navTriggers) {
+            const trigger = document.getElementById(triggerId);
+            const modalId = navTriggers[triggerId];
+            const modal = document.getElementById(modalId);
+            if (trigger && modal) {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal(modal);
+                });
+            }
+        }
+
+        allModals.forEach(modal => {
+            const tutup = modal.querySelector('.tutup');
+            tutup.addEventListener('click', () => closeModal(modal));
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModal = document.querySelector('.peti.buka');
+                if (openModal) {
+                    closeModal(openModal);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
