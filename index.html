@@ -7,449 +7,1090 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+   <style>
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        :root {
-            --latar: #fdfbfb;
-            --teks1: #2d3436;
-            --teks2: #636e72;
-            --aksen1: #d63031;
-            --oren1: #ff9f43;
-            --grad1: linear-gradient(45deg, var(--aksen1), var(--oren1));
-            --putih: #ffffff;
-            --bayang: rgba(0, 0, 0, 0.08);
-            --bayang-gelap: rgba(0, 0, 0, 0.15);
-            --batas: #dfe6e9;
-        }
+    :root {
+        --latar: #fdfbfb;
+        --teks1: #2d3436;
+        --teks2: #636e72;
+        --aksen1: #d63031;
+        --oren1: #ff9f43;
+        --grad1: linear-gradient(45deg, var(--aksen1), var(--oren1));
+        --putih: #ffffff;
+        --bayang: rgba(0, 0, 0, 0.08);
+        --bayang-gelap: rgba(0, 0, 0, 0.15);
+        --batas: #dfe6e9;
+    }
 
-        .badan {
-            font-family: 'Cal Sans', sans-serif;
-            background-color: var(--latar);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23dfe6e9' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-            color: var(--teks2);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-top: 100px;
-        }
-        
-        .badan.no-ges {
-            overflow: hidden;
-        }
+    .badan {
+        font-family: 'Cal Sans', sans-serif;
+        background-color: var(--latar);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23dfe6e9' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+        color: var(--teks2);
+        line-height: 1.6;
+        overflow-x: hidden;
+        padding-top: 100px;
+    }
 
-        .peringatan {
-            background: var(--grad1);
-            color: var(--putih);
-            text-align: center;
-            padding: 0.8rem 1.5rem;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            position: fixed;
-            width: 100%;
-            top: 50px;
-            left: 0;
-            z-index: 1002;
-            box-shadow: 0 5px 20px rgba(214, 48, 49, 0.3);
-            border-bottom: 2px solid var(--putih);
-            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-        }
+    .badan.no-ges {
+        overflow: hidden;
+    }
+    
+    #foto-penulis {
+        pointer-events: none;
+        user-select: none;
+    }
 
-        .navigasi {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--batas);
-            z-index: 999;
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .navigasi-daftar {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-        .navigasi-item a {
-            text-decoration: none;
-            color: var(--teks2);
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-        .navigasi-item a:hover {
-            color: var(--aksen1);
-        }
+    .peringatan {
+        background: var(--grad1);
+        color: var(--putih);
+        text-align: center;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        position: fixed;
+        width: 100%;
+        top: 50px;
+        left: 0;
+        z-index: 1002;
+        box-shadow: 0 5px 20px rgba(214, 48, 49, 0.3);
+        border-bottom: 2px solid var(--putih);
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    }
 
-        .utama {
-            width: 100%;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-        }
+    .navigasi {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--batas);
+        z-index: 999;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .utama .potoWad {
-            max-width: 900px;
-            margin: 0 auto 2rem;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px var(--bayang-gelap);
-            border: 4px solid var(--putih);
-        }
+    .navigasi-daftar {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+    }
 
-        .utama .gbrX {
-            width: 100%;
-            display: block;
-            height: auto;
-        }
+    .navigasi-item a {
+        text-decoration: none;
+        color: var(--teks2);
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
 
-        .utama .judulX {
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            color: var(--teks1);
-            margin-bottom: 1rem;
-        }
-        
-        .utama .narasi-wadah {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .utama .narasi {
-            font-family: 'Cal Sans', sans-serif;
-            font-weight: normal;
-            font-size: 1.2rem; 
-            color: var(--teks2);
-            position: relative;
-            overflow: hidden;
-            transition: max-height 0.7s ease-in-out;
-        }
-        .utama .narasi.singkat {
-            max-height: 150px;
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-        }
-        .utama #bacaLengkapNarasi {
-            font-family: 'Cal Sans', sans-serif;
-            background: var(--grad1);
-            color: var(--putih);
-            border: none;
-            padding: 0.7rem 1.8rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-        }
-        .utama #bacaLengkapNarasi:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(214, 48, 49, 0.35);
-        }
+    .navigasi-item a:hover {
+        color: var(--aksen1);
+    }
 
-        .gila {
-            text-align: center;
-            padding: 2rem 1.5rem 3rem;
-        }
-        
-        .gila .uwu {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            letter-spacing: 2px;
-            background-image: var(--grad1);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 25px rgba(214, 48, 49, 0.2);
-        }
-        
-        .cuy {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            padding: 1rem 1.5rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .omah {
-            background: var(--putih);
-            border: 1px solid var(--batas);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            opacity: 0;
-            transform: translateY(30px);
-            box-shadow: 0 5px 20px var(--bayang);
-        }
+    .utama {
+        width: 100%;
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+    }
 
-        @keyframes uwih {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .utama .potoWad {
+        max-width: 900px;
+        margin: 0 auto 2rem;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px var(--bayang-gelap);
+        border: 4px solid var(--putih);
+    }
 
-        .omah:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 18px 40px var(--bayang-gelap);
-        }
+    .utama .gbrX {
+        width: 100%;
+        display: block;
+        height: auto;
+    }
 
-        .omah .poto {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--oren1);
-            margin: 0 auto 1rem;
-            background-color: #b2bec3;
-            box-shadow: 0 5px 20px var(--bayang);
-        }
-        
-        .omah .nma {
-            font-size: 1.6rem;
-            margin-bottom: 0.25rem;
-            color: var(--teks1);
-        }
-        
-        .omah .cetk {
-            font-family: 'Cal Sans', sans-serif;
-            font-weight: normal;
-            font-style: italic;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-            color: var(--aksen1);
-        }
+    .utama .judulX {
+        font-size: clamp(2rem, 7vw, 3.5rem);
+        color: var(--teks1);
+        margin-bottom: 1rem;
+        position: relative;
+    }
 
-        .omah .desc-singkat {
-            font-family: 'Cal Sans', sans-serif;
-            font-weight: normal;
-            font-size: 0.95rem;
-            height: 80px;
-            color: var(--teks2);
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
+    .utama .narasi-wadah {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: left;
+    }
 
-        .omah .uhuy {
-            font-family: 'Cal Sans', sans-serif;
-            background: var(--grad1);
-            color: var(--putih);
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-            align-self: center;
-            margin-top: auto;
-        }
-        
-        .omah .uhuy:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 25px rgba(214, 48, 49, 0.4);
-        }
+    .utama .narasi {
+        font-family: 'Cal Sans', sans-serif;
+        font-weight: normal;
+        font-size: 1.2rem;
+        color: var(--teks2);
+        position: relative;
+        overflow: hidden;
+        transition: max-height 0.7s ease-in-out;
+    }
 
-        .peti {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-            backdrop-filter: blur(8px);
-            z-index: 1001;
-            padding: 1rem;
-        }
-        
-        .peti.buka {
-            opacity: 1;
-            visibility: visible;
-        }
+    .utama .narasi.singkat {
+        max-height: 150px;
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    }
 
-        .isih {
-            background: var(--putih);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            transform: translateY(30px) scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid var(--batas);
-        }
-        
-        .isih.nav-isih {
-            max-width: 600px;
-            height: auto;
-            max-height: 80vh;
-        }
-        .isih.nav-isih .teksWad { text-align: center; }
+    .utama #bacaLengkapNarasi {
+        font-family: 'Cal Sans', sans-serif;
+        background: var(--grad1);
+        color: var(--putih);
+        border: none;
+        padding: 0.7rem 1.8rem;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
 
-        .peti.buka .isih {
-            transform: translateY(0) scale(1);
-        }
+    .utama #bacaLengkapNarasi:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(214, 48, 49, 0.35);
+    }
 
-        .potoWad-modal {
-            flex-shrink: 0;
-            background-color: var(--latar);
-        }
-        
-        #potoX {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: contain;
-            max-height: 40vh;
-        }
+    .gila {
+        text-align: center;
+        padding: 2rem 1.5rem 3rem;
+    }
 
-        .teksWad {
-            padding: 1.5rem 2rem;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
+    .gila .uwu {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        letter-spacing: 2px;
+        background-image: var(--grad1);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 2px 2px 25px rgba(214, 48, 49, 0.2);
+    }
 
-        .teksWad::-webkit-scrollbar { width: 8px; }
-        .teksWad::-webkit-scrollbar-track { background: #f1f2f6; }
-        .teksWad::-webkit-scrollbar-thumb { background: var(--oren1); border-radius: 10px; }
-        
-        #nmaX, .nav-isih h2 {
-            font-size: 2.2rem;
-            color: var(--teks1);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        
-        #descX, .nav-isih p {
-            font-family: 'Cal Sans', sans-serif;
-            text-align: justify;
-            opacity: 0.9;
-            font-weight: normal;
-            white-space: pre-line;
-            color: var(--teks2);
-        }
+    .cuy {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem 1.5rem 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .anim-teks {
-            animation: asoy 0.6s ease-out 0.2s both;
-        }
+    .omah {
+        background: var(--putih);
+        border: 1px solid var(--batas);
+        border-radius: 20px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        opacity: 0;
+        transform: translateY(30px);
+        box-shadow: 0 5px 20px var(--bayang);
+    }
 
-        @keyframes asoy {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .tutup {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 50%;
-            border: none;
-            color: var(--putih);
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-            z-index: 1001;
-        }
-        .tutup:hover {
-            opacity: 1;
-            transform: rotate(90deg);
-            background: var(--aksen1);
-        }
+    .omah:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 18px 40px var(--bayang-gelap);
+    }
 
-        .kontak-modal-daftar {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-        .kontak-modal-item {
-            text-decoration: none;
-            color: var(--teks2);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .kontak-modal-item:hover {
-            color: var(--aksen1);
-            transform: scale(1.1);
-        }
-        .kontak-modal-item svg {
-            width: 48px;
-            height: 48px;
-            fill: currentColor;
-        }
+    .omah .poto {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--oren1);
+        margin: 0 auto 1rem;
+        background-color: #b2bec3;
+        box-shadow: 0 5px 20px var(--bayang);
+    }
 
-        .kaki {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background-color: var(--putih);
-            border-top: 1px solid var(--batas);
-            margin-top: 2rem;
-            color: var(--teks2);
-        }
+    .omah .nma {
+        font-size: 1.6rem;
+        margin-bottom: 0.25rem;
+        color: var(--teks1);
+    }
 
-        @media (max-width: 767px) {
-            .navigasi-daftar {
-                gap: 0.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .navigasi-item {
-                padding: 0 0.5rem;
-            }
-            .navigasi-item a { font-size: 1rem; }
-            .peringatan { font-size: 0.9rem; top: 76px; }
-            .badan { padding-top: 140px; }
-        }
+    .omah .cetk {
+        font-family: 'Cal Sans', sans-serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        color: var(--aksen1);
+        transition: letter-spacing 0.3s ease;
+    }
+    
+    .omah:hover .cetk {
+        letter-spacing: 3px;
+    }
 
-        @media (min-width: 768px) {
-            .badan { padding-top: 100px; }
-            .utama { padding: 4rem 1.5rem; }
-            .gila { padding: 0 1.5rem 4rem; }
-            .cuy { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-            .isih { flex-direction: row; height: 600px; max-height: 90vh; }
-            .isih.nav-isih { flex-direction: column; height: auto; max-width: 600px; }
-            .potoWad-modal {
-                flex-basis: 45%;
-                height: 100%;
-                background: linear-gradient(135deg, #ff9a8b, #ff6a88);
-            }
-            #potoX { max-height: none; object-fit: cover; }
-            .teksWad { flex-basis: 55%; height: 100%; padding: 2rem 3rem; }
-            #nmaX { text-align: left; }
-            .isih.nav-isih #nmaX { text-align: center; }
-        }
-        @media (min-width: 1024px) {
-            .cuy { grid-template-columns: repeat(3, 1fr); }
-        }
-    </style>
+    .omah .desc-singkat {
+        font-family: 'Cal Sans', sans-serif;
+        font-weight: normal;
+        font-style: italic;
+        font-size: 0.95rem;
+        height: 80px;
+        color: var(--teks2);
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    .omah .uhuy {
+        font-family: 'Cal Sans', sans-serif;
+        background: var(--grad1);
+        color: var(--putih);
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        align-self: center;
+        margin-top: auto;
+    }
+
+    .omah .uhuy:hover {
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 8px 25px rgba(214, 48, 49, 0.4);
+    }
+
+    .peti, .bukti-peti-wadah {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 10, 10, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        backdrop-filter: blur(8px);
+        z-index: 1001;
+        padding: 1rem;
+    }
+
+    .peti.buka, .bukti-peti-wadah.buka {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .isih, .bukti-peti {
+        background: var(--putih);
+        border-radius: 20px;
+        width: 100%;
+        max-height: 90vh;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        transform: translateY(30px) scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid var(--batas);
+        position: relative;
+    }
+    
+    .peti.buka .isih, .bukti-peti-wadah.buka .bukti-peti {
+        transform: translateY(0) scale(1);
+    }
+    
+    .isih {
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .isih.nav-isih {
+        max-width: 600px;
+        height: auto;
+        max-height: 80vh;
+    }
+    
+    .isih.nav-isih .teksWad { text-align: center; }
+
+    .potoWad-modal {
+        flex-shrink: 0;
+        background-color: var(--latar);
+    }
+
+    #potoX {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        max-height: 40vh;
+    }
+
+    .teksWad {
+        padding: 1.5rem 2rem;
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    .teksWad::-webkit-scrollbar { width: 8px; }
+    .teksWad::-webkit-scrollbar-track { background: #f1f2f6; }
+    .teksWad::-webkit-scrollbar-thumb { background: var(--oren1); border-radius: 10px; }
+
+    #nmaX, .nav-isih h2 {
+        font-size: 2.2rem;
+        color: var(--teks1);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    #descX, .nav-isih p {
+        font-family: 'Cal Sans', sans-serif;
+        text-align: justify;
+        opacity: 0.9;
+        font-weight: normal;
+        white-space: pre-line;
+        color: var(--teks2);
+    }
+    
+    .bukti-peti {
+        max-width: 600px;
+        padding: 2rem 1.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        color: var(--teks1);
+    }
+
+    #bukti-peti .teksWad {
+        overflow-y: auto;
+        flex-grow: 1;
+        padding-right: 1.5rem; 
+        padding-left: 1.5rem; 
+    }
+
+    #bukti-peti .teksWad h2 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
+        color: var(--aksen1);
+        text-align: center;
+    }
+
+    #bukti-peti .teksWad p {
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        white-space: pre-line;
+        margin: 0;
+        text-align: left;
+    }
+
+    #bukti-peti .teksWad img.bukti-gambar {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 1rem auto;
+        display: block;
+        box-shadow: 0 5px 20px var(--bayang);
+    }
+    
+    .tutup, #tutup-peti {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0,0,0,0.2);
+        border-radius: 50%;
+        border: none;
+        color: var(--putih);
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        z-index: 1003;
+    }
+
+    .tutup:hover, #tutup-peti:hover {
+        opacity: 1;
+        transform: rotate(90deg) scale(1.1);
+        background: var(--aksen1);
+    }
+    
+    #tutup-peti {
+       color: #2c2c2c;
+    }
+    
+    .kontak-modal-daftar {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .kontak-modal-item {
+        text-decoration: none;
+        color: var(--teks2);
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .kontak-modal-item:hover {
+        color: var(--aksen1);
+        transform: scale(1.1);
+    }
+
+    .kontak-modal-item svg {
+        width: 48px;
+        height: 48px;
+        fill: currentColor;
+    }
+
+    .kaki {
+        text-align: center;
+        padding: 2rem 1.5rem;
+        background-color: var(--putih);
+        border-top: 1px solid var(--batas);
+        margin-top: 2rem;
+        color: var(--teks2);
+    }
+    
+    .meja-bukti {
+        width: 100%;
+        padding: 4rem 1.5rem;
+        text-align: center;
+        background: linear-gradient(to top, #2b2b2b, #4b4b4b);
+        position: relative;
+    }
+
+    .judul-meja {
+        font-size: clamp(2rem, 7vw, 3rem);
+        color: #ffffff;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .meja-wadah {
+        position: relative;
+        max-width: 900px;
+        height: 500px;
+        margin: 0 auto;
+        border-radius: 15px;
+        background-color: #6d4c41;
+        background-image:
+            url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW3W1tZgYGBgYGB7e3t0dHR/f39tbW1bW1t1dXWVlZWWlpbKysrV1dXLy8uXl5eUlJTOzs7ExMSLi4uBgYGIiIiHh4ebm5uioqKjo6N8fHxpaWhJV31xAAAACXRSTlMAAAAAANTg4CDk/eQd2QAAAFRJREFUeNrtwQENAAAEADCw/299DRsAhI0y1p3VVTq9/5A3MrMxs39XNcA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4IA4I5wBhRgQ2AzaZFAAAAABJRU5ErkJggg=='),
+            linear-gradient(to bottom, #8d6e63, #5d4037);
+        border: 10px solid #4e342e;
+        box-shadow:
+            inset 0 0 25px rgba(0,0,0,0.5),
+            0 20px 50px rgba(0,0,0,0.6);
+        overflow: hidden;
+    }
+
+    .meja-wadah::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        height: 45%;
+        background-color: #263238;
+        background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 5px 5px;
+        border-radius: 12px 12px 0 0;
+        border-top: 2px solid #455a64;
+        border-left: 2px solid #37474f;
+        border-right: 2px solid #37474f;
+        box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+    }
+
+    .lampu-meja {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: #333;
+        border-radius: 50%;
+        top: 15px;
+        right: 40px;
+        z-index: 15;
+    }
+
+    .lampu-meja::before {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 250px;
+        background: #555;
+        top: 25px;
+        right: 12px;
+        transform: rotate(35deg);
+        transform-origin: top center;
+        border-radius: 10px;
+    }
+
+    .lampu-meja::after {
+        content: '';
+        position: absolute;
+        width: 150px;
+        height: 80px;
+        background: #1e1e1e;
+        top: 2125px;
+        right: -85px;
+        border-radius: 20px 20px 0 0;
+        transform: rotate(-55deg);
+        box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .cahaya-lampu {
+        position: absolute;
+        top: 240px;
+        right: -130px;
+        width: 350px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 239, 186, 0.2) 0%, rgba(255, 239, 186, 0) 65%);
+        pointer-events: none;
+        transform: rotate(-55deg);
+        z-index: 12;
+    }
+
+    .cangkir-kopi {
+        position: absolute;
+        width: 40px;
+        height: 50px;
+        background: #f1f2f6;
+        border-radius: 10px 10px 40% 40%;
+        box-shadow: inset 5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 20;
+        bottom: 88px;
+        right: 20px;
+        transform: translateX(-610%) scale(1.5)
+    }
+
+    .cangkir-kopi::before {
+        content: '';
+        position: absolute;
+        right: -18px;
+        top: 5px;
+        width: 30px;
+        height: 40px;
+        border: 10px solid #f1f2f6;
+        border-radius: 50%;
+        border-left-color: transparent;
+        transform: scale(0.8);
+    }
+
+    .asap-kopi {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        width: 2px;
+        height: 30px;
+        background: rgba(223, 230, 233, 0.3);
+        border-radius: 50%;
+        opacity: 0;
+        animation: asap-anim 3.5s infinite;
+        transform-origin: bottom center;
+    }
+    
+    .asap-2 { animation-delay: 0.8s; left: 30%; }
+    .asap-3 { animation-delay: 1.5s; left: 70%; }
+    
+    .objek-bukti {
+        position: absolute;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .objek-bukti:hover {
+        transform: scale(1.05) translateY(-5px);
+        filter: brightness(1.1);
+    }
+
+    .objek-bukti .pulse {
+        display: block; width: 25px; height: 25px;
+        background-color: rgba(214, 48, 49, 0.8);
+        border-radius: 50%; position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 0 0 rgba(214, 48, 49, 0.8);
+        animation: pulse-anim 1.5s infinite;
+    }
+
+    #bukti-hp {
+        width: 70px; height: 140px;
+        background: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        border: 3px solid #333;
+        transform: rotate(-10deg);
+        top: 48%; left: 45%;
+        z-index: 15;
+    }
+
+    #bukti-hp::before {
+        content: '';
+        position: absolute;
+        top: 5px; left: 5px; right: 5px; bottom: 5px;
+        background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+        border-radius: 8px;
+    }
+
+    #bukti-hp::after {
+        content: '';
+        position: absolute;
+        top: 8px; left: 50%;
+        transform: translateX(-50%);
+        width: 25px; height: 4px;
+        background: #000;
+        border-radius: 0 0 5px 5px;
+    }
+
+    #bukti-majalah {
+        width: 250px; height: 180px;
+        background: #fff;
+        transform: rotate(10deg) rotateX(10deg);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        border-radius: 5px;
+        top: 15%; left: 8%;
+    }
+
+    #bukti-majalah::before {
+        content: 'Warta Gembel';
+        position: absolute;
+        top: 31px;
+        left: 27px;
+        font-size: 27px;
+        font-family: 'Courier New', Courier, monospace;
+        color: #d63031;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+     .peran-tambahan-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem 4rem;
+        background-color: var(--putih);
+        border-top: 1px solid var(--batas);
+        padding-top: 3rem;
+    }
+
+    .peran-tambahan-wadah {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .nama-pendukung {
+        background: var(--teks1);
+        border: 1px solid #4a4a4a;
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        color: var(--putih);
+        font-family: 'Cal Sans', sans-serif;
+        font-weight: normal;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px var(--bayang);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .nama-pendukung:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 20px var(--bayang-gelap);
+        background-color: var(--aksen1);
+        color: var(--putih);
+        border-color: transparent;
+    }
+
+    #bukti-majalah::after {
+        content: '';
+        position: absolute;
+        bottom: 15px; left: 15px; right: 15px;
+        height: 70px;
+        border: 2px dashed #636e72;
+        background:
+            repeating-linear-gradient(90deg, #b2bec3 0, #b2bec3 1px, transparent 1px, transparent 8px),
+            repeating-linear-gradient(0deg, #b2bec3 0, #b2bec3 1px, transparent 1px, transparent 8px);
+    }
+
+    #bukti-kado {
+        width: 130px; height: 130px;
+        background: linear-gradient(135deg, #74b9ff, #0984e3);
+        transform: rotate(-25deg) translateY(10px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        top: 60%; left: 12%;
+    }
+
+    #bukti-kado::before, #bukti-kado::after {
+        content: '';
+        position: absolute;
+        background: #ffeaa7;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #bukti-kado::before {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 100%;
+    }
+
+    #bukti-kado::after {
+        top: 50%;
+        transform: translateY(-50%);
+        width: 85%;
+        height: 20px;
+    }
+
+    #bukti-laptop {
+        width: 320px; height: 200px;
+        transform-style: preserve-3d;
+        perspective: 1200px;
+        z-index: 14;
+        bottom: 57%; left: 30%;
+    }
+
+    .laptop-base {
+        position: absolute;
+        bottom: 0; left: 73px;
+        width: 50%; height: 15px;
+        background: #b2bec3;
+        transform: rotateX(70deg);
+        border-radius: 5px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .laptop-base::before {
+        content: '';
+        position: absolute;
+        top: -115px; left: -12.5px;
+        width: 250px; height: 110px;
+        background: #4a4a4a;
+        border-radius: 8px;
+        background-image:
+            repeating-linear-gradient(0deg, #333, #333 7px, transparent 7px, transparent 9px),
+            repeating-linear-gradient(90deg, #222, #222 7px, transparent 7px, transparent 9px);
+        background-position: 3px 3px;
+    }
+
+  
+
+    .laptop-layar {
+        position: absolute;
+        bottom: 15px; left: 73px;
+        width: 70%; height: 200px;
+        background: #1e1e1e;
+        border: 12px solid #4a4a4a;
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+        transform-origin: bottom center;
+        transform: rotateX(-105deg);
+    }
+
+    #bukti-topi {
+        width: 160px; height: 70px;
+        z-index: 11;
+        transform: rotate(-20deg) rotateX(20deg);
+        top: 35%; right: 15%;
+    }
+
+    .topi-mahkota {
+        position: absolute;
+        width: 120px; height: 60px;
+        top: 0; left: 50%; transform: translateX(-50%);
+        background: radial-gradient(circle at 50% 50%, #f7f1e3, #e1d7c4);
+        border-radius: 50% / 35%;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.15);
+    }
+
+    .topi-brim {
+        position: absolute;
+        width: 100%; height: 25px;
+        bottom: 0;
+        background: radial-gradient(ellipse at 50% 50%, #e1d7c4, #c9beaa);
+        border-radius: 50%;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    .topi-band {
+        position: absolute;
+        bottom: 18px; left: 50%;
+        transform: translateX(-50%);
+        width: 125px; height: 12px;
+        background: #3d3d3d;
+        border-radius: 8px;
+        z-index: 2;
+    }
+
+    #bukti-pisau {
+        width: 220px; height: 35px;
+        bottom: 15%; right: 28%;
+        z-index: 15;
+        rotate: -68deg;
+        transform:  translateX(55%) translateY(705%);
+    }
+
+    .pisau-handle {
+        position: absolute;
+        left: 0; top: 50%; transform: translateY(-50%);
+        width: 100px; height: 22px;
+        background: linear-gradient(90deg, #4b2e23, #2e1c14);
+        border-radius: 4px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .pisau-blade {
+        position: absolute;
+        right: 0; top: 50%; transform: translateY(-50%);
+        width: 130px; height: 18px;
+        background: linear-gradient(90deg, #dfe6e9, #b2bec3);
+        clip-path: polygon(0 0, 100% 0, 100% 40%, 80% 100%, 0 100%);
+    }
+
+    .anim-teks { opacity: 0; transform: translateY(20px); animation: fadeIn-up 0.5s ease-out forwards; }
+    @keyframes fadeIn-up { to { opacity: 1; transform: translateY(0); } }
+    @keyframes uwih { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes asoy { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes asap-anim {
+        0% { transform: translateY(0) scaleX(1); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-60px) scaleX(1.5); opacity: 0; }
+    }
+    @keyframes pulse-anim {
+        0% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 0 0 rgba(214, 48, 49, 0.7); }
+        70% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 15px rgba(214, 48, 49, 0); }
+        100% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 0 0 rgba(214, 48, 49, 0); }
+    }
+    @keyframes mysterious-glitch {
+        0% { clip-path: inset(50% 50% 50% 50%); transform: translate(0, 0); opacity: 0; }
+        20% { clip-path: inset(80% 0 10% 0); transform: translate(-10px, 5px); opacity: 1; text-shadow: 2px 0 #00ffff; }
+        40% { clip-path: inset(15% 0 70% 0); transform: translate(10px, -3px); text-shadow: -2px 0 #ff00ff; }
+        60% { clip-path: inset(50% 0 45% 0); transform: translate(5px, 10px); text-shadow: 3px 2px #00ff00; }
+        80% { clip-path: inset(90% 0 5% 0); transform: translate(-8px, 0); opacity: 1; }
+        100% { clip-path: inset(50% 50% 50% 50%); transform: translate(0, 0); opacity: 0; }
+    }
+    @keyframes glitch-anim {
+      0% { clip-path: inset(10% 0 80% 0); opacity: 1; }
+      100% { clip-path: inset(75% 0 5% 0); opacity: 0; }
+    }
+
+    @media (max-width: 900px) {
+       .cuy { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+       .isih { height: auto; }
+       .potoWad-modal { flex-basis: 40%; }
+       .teksWad { flex-basis: 60%; }
+    }
+    
+    @media (max-width: 767px) {
+    .badan { 
+        padding-top: 120px; 
+    }
+
+    .cangkir-kopi::before {
+        content: '';
+        position: absolute;
+        right: -25px;
+        top: 15px;
+        width: 30px;
+        height: 40px;
+        border: 10px solid #f1f2f6;
+        border-radius: 50%;
+        border-left-color: transparent;
+        transform: scale(0.8);
+    }
+
+    .navigasi-daftar { 
+        gap: 0.5rem; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+    }
+    .navigasi-item { 
+        padding: 0 0.5rem; 
+    }
+    .navigasi-item a { 
+        font-size: 1rem; 
+    }
+    .peringatan { 
+        font-size: 0.9rem; 
+        top: 76px; 
+    }
+    .cuy { 
+        grid-template-columns: 1fr; 
+    }
+
+    .meja-wadah {
+        height: 550px;
+    }
+    
+    .lampu-meja::after {
+        width: 100px;
+        height: 60px;
+        top: 165px;
+        right: -50px;
+        visibility: hidden;
+    }
+    .lampu-meja::before {
+    transform: rotate(80deg);
+    }
+
+    .cahaya-lampu {
+        top: 180px;
+        right: -100px;
+        width: 250px;
+        height: 200px;
+    }
+    
+    .cangkir-kopi { 
+        transform: scale(0.8);
+        bottom: 20px;
+        right: 20px;
+        height: 50px;
+    }
+    .cangkir-kopi::before {
+        transform: scale(0.8) translateX(-27%) translateY(-29%) ;
+    }
+    
+    #bukti-majalah {
+        top: 5%;
+        left: 5%;
+        transform: scale(0.7) rotate(8deg);
+    }
+    
+    #bukti-laptop {
+        bottom: 5%;
+
+        left: 100%;
+        width: 280px;
+        transform: translateX(-50%) scale(0.8);
+    }
+
+    .laptop-base {
+        height: 12px;
+        transform: rotateX(75deg);  
+    }
+
+
+    .laptop-layar {
+        height: 170px;
+        bottom: -50px;
+        left: 105px;
+        transform: rotateX(-100deg);
+    }
+    
+    
+    .laptop-base::before {
+        top: 65px;
+        left: 35px;
+        width: 175px;
+        height: 90px;
+    }
+
+    .laptop-base::after {
+        bottom: 1110px;
+        top: 500px;
+        width: 60px;
+        height: 40px;
+        transform: translateY(10%);
+        visibility: hidden;
+    }
+    
+    #bukti-hp {
+        top: 45%;
+        right: 10%;
+        transform: scale(0.8) rotate(4deg) translateX(45%) translateY(25%);
+    }
+    
+    #bukti-kado {
+        top: 50%;
+        left: 8%;
+        transform: scale(0.8) rotate(-20deg) translateY(-100%);
+    }
+    
+    #bukti-topi {
+        top: 8%;
+        right: 5%;
+        transform: scale(0.75) rotate(-15deg) translateX(-42%) translateY(-350%);
+    }
+    
+    #bukti-pisau {
+        top: 68%;
+        left: 44%;
+        transform: scale(0.6) rotate(6deg) translateY(-50%) translateX(-15%);
+    }
+
+}
+    
+    @media (min-width: 768px) {
+        .utama { padding: 4rem 1.5rem; }
+        .gila { padding: 0 1.5rem 4rem; }
+        .isih { flex-direction: row; height: 600px; max-height: 85vh; }
+        .isih.nav-isih { flex-direction: column; height: auto; max-width: 600px; }
+        .potoWad-modal { flex-basis: 45%; height: 100%; background: linear-gradient(135deg, #ff9a8b, #ff6a88); }
+        #potoX { max-height: none; object-fit: cover; }
+        .teksWad { flex-basis: 55%; height: 100%; padding: 2rem 3rem; }
+        #nmaX { text-align: left; }
+        .isih.nav-isih #nmaX { text-align: center; }
+    }
+
+    @media (min-width: 1024px) {
+        .cuy { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    }
+
+        .audio-pemutar-wadah {
+        margin-top: 1.5rem;
+    }
+
+    .audio-pemutar {
+        width: 100%;
+        border-radius: 50px;
+    }
+    
+    .audio-pemutar::-webkit-media-controls-panel {
+        background-color: #f1f2f6;
+        border-radius: 50px;
+        border: 1px solid var(--batas);
+    }
+
+    .audio-pemutar::-webkit-media-controls-play-button {
+        background-color: var(--aksen1);
+        border-radius: 50%;
+    }
+
+    .audio-pemutar::-webkit-media-controls-current-time-display,
+    .audio-pemutar::-webkit-media-controls-time-remaining-display {
+        color: var(--teks1);
+        text-shadow: none;
+    }
+    
+    .audio-pemutar::-webkit-media-controls-timeline {
+        background-color: var(--batas);
+        border-radius: 25px;
+        margin: 0 10px;
+    }
+</style>
+ 
 </head>
 <body class="badan">
     
@@ -487,6 +1128,61 @@
         </div>
     </section>
 
+   <section class="meja-bukti">
+    <h2 class="judul-meja">- MEJA BUKTI -</h2>
+    <div class="meja-wadah">
+        <div class="lampu-meja">
+            <div class="cahaya-lampu"></div>
+        </div>
+        <div class="cangkir-kopi">
+            <div class="asap-kopi asap-1"></div>
+            <div class="asap-kopi asap-2"></div>
+            <div class="asap-kopi asap-3"></div>
+        </div>
+
+
+        <div class="objek-bukti" id="bukti-hp" style="top: 50%; left: 45%;" data-lore-key="hp">
+            <span class="pulse"></span>
+        </div>
+
+        <div class="objek-bukti" id="bukti-majalah" style="top: 15%; left: 8%;" data-lore-key="majalah">
+            <span class="pulse"></span>
+        </div>
+
+        <div class="objek-bukti" id="bukti-kado" style="top: 60%; left: 10%;" data-lore-key="kado">
+            <span class="pulse"></span>
+        </div>
+        
+        <div class="objek-bukti" id="bukti-laptop" style="bottom: 15%; left: 30%;" data-lore-key="laptop">
+            <div class="laptop-layar"></div>
+            <div class="laptop-base"></div>
+            <span class="pulse" style="bottom: -20px;"></span>
+        </div>
+
+        <div class="objek-bukti" id="bukti-topi" style="top: 30%; right: 20%;" data-lore-key="topi">
+            <div class="topi-brim"></div>
+            <div class="topi-mahkota"></div>
+            <div class="topi-band"></div>
+            <span class="pulse"></span>
+        </div>
+
+        <div class="objek-bukti" id="bukti-pisau" style="bottom: 15%; right: 25%;" data-lore-key="pisau">
+            <div class="pisau-handle"></div>
+            <div class="pisau-blade"></div>
+            <span class="pulse" style="left: 20%;"></span>
+        </div>
+        
+    </div>
+</section>
+
+<div class="bukti-peti-wadah" id="bukti-peti">
+    <div class="bukti-peti">
+        <button id="tutup-peti">&times;</button>
+        <div class="teksWad" id="bukti-peti-isi">
+        </div>
+    </div>
+</div>
+
     <header class="gila">
         <h1 class="uwu">PARA AKTOR</h1>
     </header>
@@ -498,7 +1194,9 @@ Nyokap gue itu malaikat yang salah ngambil belokan pas mau ke surga, akhirnya ny
 
 Jadi, gue harus gerak. Hobi gue jadi sumber penghasilan, yaitu ngumpulin berita absurd soal tuyul nyolong jemuran, gambar-gambar, gue satuin jadi majalah fotokopian jelek namanya 'Warta Gembel'. Gue jual keliling. Kenapa? Karena Natasya, adek gue, gak boleh tau rasanya nahan laper sampe sore. Dia harus punya masa depan yang lebih baik dari sekadar bayang-bayang bapaknya yang gagal.
 
-Jadi ya gitu kepribadian gue. Dari luar, lo liat gue kayak karakter utama di film indie. Diem, misterius, tatapan nanar menembus cakrawala. Keren, kan? Padahal di dalem sini, otak gue isinya bukan pemikiran filosofis. Cuma ada suara kalkulator lagi ngitung: “Oke, sisa duit cukup buat nasi telor. Kuota buat warnet, ngutang dulu ke Pak Yanto.” Prioritas, Bro. Prioritas.">
+Jadi ya gitu kepribadian gue. Dari luar, lo liat gue kayak karakter utama di film indie. Diem, misterius, tatapan nanar menembus cakrawala. Keren, kan? Padahal di dalem sini, otak gue isinya bukan pemikiran filosofis. Cuma ada suara kalkulator lagi ngitung: “Oke, sisa duit cukup buat nasi telor. Kuota buat warnet, ngutang dulu ke Pak Yanto.” Prioritas, Bro. Prioritas.
+
+Mungkin karena saking ironinya gue, sampe si penulis yang tingkah lakunya ada-ada aja ngebuat cerpen tugasnya sendiri. Mana seenaknya pake karakter gue lagi. Yaudah buat lo yang bosen dengerin orang miskin ini, gue kasih lo izin buat baca: https://www.mediafire.com/file/fsk7ad2nu6ig0vn/CerpenG7KAIHRangga.docx/file. Makan tuh link!" </div>
             <div>
                 <img src="rangga.png" alt="Foto Karakter" class="poto">
                 <h2 class="nma">Rangga V. Febrian</h2>
@@ -507,7 +1205,7 @@ Jadi ya gitu kepribadian gue. Dari luar, lo liat gue kayak karakter utama di fil
             </div>
             <button class="uhuy">Selengkapnya</button>
         </div>
-        <div class="omah" data-full-desc="Haii~ Kenalin, aku Nazwa Elvarine! ✨ Katanya sih aku ini orangnya adem, kayak ubin masjid pas siang-siang bolong gitu, hehe 🕌. Mungkin karena di rumah suasananya juga anget banget, kayak pelukan selimut pas lagi hujan.
+               <div class="omah" id="nazwa-card" data-full-desc="Haii~ Kenalin, aku Nazwa Elvarine! ✨ Katanya sih aku ini orangnya adem, kayak ubin masjid pas siang-siang bolong gitu, hehe 🕌. Mungkin karena di rumah suasananya juga anget banget, kayak pelukan selimut pas lagi hujan.
 
 Ayahku itu psikolog, jadi di rumah aku lebih sering diajarin cara dengerin orang daripada cara ngomong. Seru, lho! Jadi tau kalo orang diem itu bukan berarti sombong, mungkin lagi mikirin cicilan emaknya 🤭. Terus kakak-kakakku itu partner in crime-ku banget! Dari main hantu-hantuan pake selimut sampe perang kecoa mainan, semua udah kita cobain wkwkwk. Mereka yang ngajarin aku kalo hidup itu harus penuh sama ketawa, walaupun kadang ketawanya gara-gara hal-hal aneh.
 
@@ -524,7 +1222,7 @@ Buat aku, dunia itu simpel. Selama masih ada temen buat diajak ketawa, kucing or
             </div>
             <button class="uhuy">Selengkapnya</button>
         </div>
-        <div class="omah" data-full-desc="Gue Satria.
+        <div class="omah" id="satria-card" data-full-desc="Gue Satria.
 
 Lo mau tau gue kayak gimana? Gak usah repot-repot nanya. Liat aja. Cari anak yang jalannya paling gak peduli di koridor, yang seragamnya burik tapi matanya gak ada isinya. Itu gue. Gue bukan lagi manusia, kontol. Gue ini cuma sekumpulan amarah yang kebetulan bisa jalan.
 
@@ -540,24 +1238,26 @@ Jadi sifat gue gimana. Gak usah ditebak. Gue brutal. Gue gak punya sabar. Dan gu
             <div>
                 <img src="satria.png" alt="Foto Karakter" class="poto">
                 <h2 class="nma">Satria Darmawan</h2>
-                <p class="cetk"><a href='https://www.mediafire.com/file/aebxlppz6hm8tai/Gue+Satria.docx/file' target='_blank' rel='noopener noreferrer' style='color: var(--aksen1); font-weight: bold; text-decoration: underline;'>Dendam Neraka.</a></p>
+                <p class="cetk">
+                    <a href='https://www.mediafire.com/file/aebxlppz6hm8tai/Gue+Satria.docx/file' target='_blank' rel='noopener noreferrer' style='color: var(--aksen1); font-weight: bold; text-decoration: underline;'>
+                       
+                        Dendam Neraka.</a>
+                </p>
                 <p class="desc-singkat"></p>
             </div>
             <button class="uhuy">Selengkapnya</button>
         </div>
-        <div class="omah" data-full-desc="Perkenalkan dengan Main Character, Zidan.
+        <div class="omah" data-full-desc="Konnichiwa, minna-san~ Perkenalkan... ATASHI WA ZIDAN! Sang SHUJINKOU (protagonis) sejati dari cerita ini. Hihihi. Kamu? Dan kamu semua? Ahaha, kalian cuma Mob Chara (karakter figuran). Dialog kalian itu-itu saja, skripnya lebih mudah ditebak daripada plot anime isekai pasaran. Bangun, sekolah, kantin, pulang. LOOPING TANPA AKHIR. Kalian pikir hidup kalian penuh warna? SALAH BESAR. Kalian cuma NPC yang bahkan gak punya side quest yang menarik. menyedihkan, ya?
 
-Itu nama gue. Sang protagonis. Kalian semua. kalian cuma NPC. Beneran. Dialog kalian itu-itu aja, skripnya lebih gampang ditebak dari alur anime slice-of-life murahan. Bangun, sekolah, kantin, pulang. Looping tanpa henti. Kalian pikir hidup kalian penuh warna? Salah. Kalian cuma karakter figuran di game yang bahkan gak punya side quest.
+Aku diam bukan karena aku pemalu atau ngga punya skill sosial. Ckckck. AKU LAGI GRINDING, TAU! Aku lagi O-B-S-E-R-V-A-S-I. Untuk apa aku buang-buang MP yang berharga untuk meladeni slime level 1 seperti kalian? HAH?! Tidak ada experience points yang kudapat. Obrolan kalian hanya FILLER, tidak ada hubungannya sama MAIN STORY-ku. Mending aku diam, sambil mengumpulkan data, menyusun build item yang sempurna untuk... LATE GAME nanti. AHAHAHAHA.
 
-Gue diem bukan karena gue pemalu atau gak punya skill sosial. Please, deh. Gue lagi grinding. Gue lagi observasi. Ngapain gue buang-buang MP buat ngeladenin slime level 1 kayak kalian?. Gak ada experience points yang gue dapet. Omongan kalian cuma filler, gak ada hubungannya sama main story. Mending gue diem, sambil ngumpulin data, nyusun build item yang sempurna buat late game.
+Latar belakangku? Tidak penting. Anggap saja aku MC dari dark fantasy anime yang lagi terjebak di fase PROLOG paling membosankan di dunia. Aku menunggu untuk di-summon ke Isekai, tapi sepertinya portalnya sedang maintenance. Jadi ya sudah... kunikmati saja tutorial membosankan ini sambil menganalisis kelemahan world-building di sekitarku. Satria? Dia cuma mini-boss tipe berserker yang pola serangannya MONOTON.
 
-Latar belakang gue. Gak penting. Anggap aja gue MC yang lagi kejebak di fase prolog paling ngebosenin sedunia. Gue nungguin di-summon ke dunia lain, tapi kayaknya portalnya lagi maintenance. Jadi yaudah, gue nikmatin aja tutorial ini sambil ngeanalisis kelemahan world-building di sekitar gue. Satria itu cuma mini-boss tipe berserker yang pola serangannya monoton.
+Gengnya Luna? Cuma hiasan visual yang ngga punya stats penting. Dan Rangga? Dia itu karakter tipe YUSHA (pahlawan) GAGAL. Stats-nya salah alokasi semua. Semangatnya besar tapi INT-nya kecil. Ampas, hehe.
 
-Gengnya Luna cuma hiasan visual, gak punya stats. Dan Rangga. dia karakter tipe hero gagal, stats-nya salah alokasi semua, niatnya gede tapi eksekusinya ampas.
+Dunia ini... cuma SANDBOX GAME yang desainnya JELEK. Dan aku? Aku sudah baca semua walkthrough dan SPOILER-nya. Aku melihat semua BUG di sistem kalian. Kamu pikir aku tidak melakukan apa-apa di pojokan? Salah lagi~. AKU SEDANG MENCATAT. AKU MENULIS LORE-NYA. Kalian semua HANYA BAGIAN DARI BACKGROUND STORY-KU, cuma untuk menambah-nambah daftar karakter sampingan.
 
-Dunia ini cuma sandbox game yang jelek. Dan gue, gue udah baca semua walkthrough dan spoiler-nya. Gue liat semua bug di sistem kalian. Kalian pikir gue gak ngapa-ngapain di pojokan? Salah lagi. Gue lagi nyatet. Gue lagi nulis lore-nya. Kalian semua cuma bagian dari background story gue, cuma buat nambah-nambahin daftar karakter.
-
-Jadi kalo kalian liat gue diem, itu bukan karena gue aneh. Gue lagi nunggu. Nungguin story arc gue dimulai. Dan pas saatnya tiba, kalian jangan kaget kalo peran kalian di cerita ini… cuma jadi mob yang dikorbanin buat plot twist. Kalian cuma NPC. Inget itu.">
+Jadi kalau kamu melihatku diam, itu bukan karena aku aneh. AKU LAGI MENUNGGU. Menunggu 'Story Arc' milikku dimulai. Dan saat waktunya tiba... jangan kaget ya kalau peranmu di cerita ini… hanya menjadi KORBAN untuk PLOT TWIST yang indah. Hehehe. Kalian hanya NPC. Camkan itu.">
             <div>
                 <img src="zidan.png" alt="Foto Karakter" class="poto">
                 <h2 class="nma">Zidan Romansyah</h2>
@@ -581,7 +1281,7 @@ Jadi, kenapa gue ikut campur di semua kekacauan ini? jawabannya sederhana. Karen
             </div>
             <button class="uhuy">Selengkapnya</button>
         </div>
-        <div class="omah" data-full-desc="Gue Naila. Kalo disuruh ngejelasin diri sendiri, gue ini tipe cewek yang batrenya awet kalo dipake buat ngobrol sama satu orang, tapi langsung boros kalo disuruh basa-basi sama segerombolan. Gue bukan sombong, gue cuma... alergi sama obrolan gak penting. Gitu aja sih.
+        <div class="omah" id="naila-card" data-full-desc="Gue Naila. Kalo disuruh ngejelasin diri sendiri, gue ini tipe cewek yang batrenya awet kalo dipake buat ngobrol sama satu orang, tapi langsung boros kalo disuruh basa-basi sama segerombolan. Gue bukan sombong, gue cuma... alergi sama obrolan gak penting. Gitu aja sih.
 
 Latar belakang gue. Gak ada yang spesial sebenernya, gue cuma lebih nyaman di dunia gue sendiri. Dunia gue itu isinya musik, buku, sama pikiran-pikiran random yang kalo diomongin ke orang lain mungkin bakal dikira aneh. Gue butuh waktu lama buat bisa ngerasa nyambung sama orang. Jadi sekalinya gue nemu yang klop, gue bakal jagain bener-bener. Gue gak punya banyak temen deket, tapi buat satu orang yang udah gue anggap sahabat, loyalitas gue seratus persen, gak pake diskon.
 
@@ -752,8 +1452,7 @@ Tujuan saya sebagai guru tidak muluk-muluk. Saya hanya ingin kalian melek. Bukan
             </div>
             <button class="uhuy">Selengkapnya</button>
         </div>
-       
-    </main>
+                       
 
     <div class="peti" id="char-peti">
         <div class="isih">
@@ -773,7 +1472,7 @@ Tujuan saya sebagai guru tidak muluk-muluk. Saya hanya ingin kalian melek. Bukan
             <button class="tutup">&times;</button>
             <div class="teksWad">
                 <h2 class="anim-teks">Penulis</h2>
-                <img src="ddu.png" alt="Foto Penulis" style="display: block; margin: 0 auto 1.5rem; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--oren1); box-shadow: 0 5px 20px var(--bayang);">
+                <img id="foto-penulis" src="ddu.png" alt="Foto Penulis" style="display: block; margin: 0 auto 1.5rem; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--oren1); box-shadow: 0 5px 20px var(--bayang);">
                 <p class="anim-teks" style="text-align: center;">Nama lengkap gue Adzan Ahlil Fiqri, panggil aja Adzan. Denger nama itu, lo pasti bayangin anak soleh yang hobinya ngingetin jadwal sholat. <br>
                  Nyokap emang doanya kelewat optimis. Dia ngarepnya dapet anak alim karena gue lahir pas Subuh, hari Senin, tanggal 15 Februari 2010. Tapi yang keluar malah justru kelewat ekspetasi... <br>
 Orang-orang di luar sana, mereka yang lagi sibuk di grup WA, yang dulu ngomentarin hidup orang lain seolah paling ngerti cuma kenal gue dari luarnya aja. Mereka gak pernah tau kalo di balik semua itu, gue punya kerjaan lain yang gak bakal pernah masuk di buku rapor. <br>
@@ -813,13 +1512,13 @@ Anggep aja ini peringatan di bungkus rokok. Lo boleh aja gak baca, tapi racunnya
             <button class="tutup">&times;</button>
             <div class="teksWad">
                 <h2 class="anim-teks">Catatan</h2>
-                <p class="anim-teks" style="text-align: center;">Lo pasti nanya. Cerita-cerita yang barusan lo telen itu beneran kejadian, apa cuma karangan gue doang pas lagi gabut. <br>
+               <p class="anim-teks" style="text-align: center;">Lo pasti nanya. Cerita-cerita yang barusan lo telen itu beneran kejadian, apa cuma karangan gue doang pas lagi gabut. <br>
 
 Jawabannya... dua-duanya. <br>
 
 Semua kejadian busuk yang lo baca, dihajar fitnah di internet, dihakimi rame-rame, sampe diusir dari lingkungan sendiri cuma gara-gara kesalahpahaman, itu semua ada. <br>
 
-Lo pikir di luar sana gak ada Rangga yang tiap hari berantem sama nasibnya sendiri. Lo pikir gak ada Satria yang ngumpulin rasa takut orang lain cuma biar dia ngerasa berkuasa.  <br>
+Lo mikirnya di luar sana gak ada Rangga yang tiap hari berantem sama nasibnya sendiri. Dan gak ada Satria yang ngumpulin rasa takut orang lain cuma biar dia ngerasa berkuasa.  <br>
 
 Buka mata lo. Mereka ada di sekeliling lo. Bahkan yang paling parah, kejadian yang gak lo sadar lo juga jadi pelakunya. Satu kali lo nge-share, satu kali lo diem pas liat temen lo diserang, itu semua bagian dari cerita ini. <br>
 
@@ -832,10 +1531,74 @@ Gue aduk semuanya jadi satu adonan. Mana kejadian nyata, mana mimpi buruk yang g
 
 Tugas lo bukan buat percaya seratus persen, tapi tugas lo itu buat misahin. Coba aja tebak. Mana tulang, mana daging, mana bumbu penyedap yang sengaja gue tambahin biar rasanya makin pait. <br>
 
-Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu cuma setipis layar HP lo.</p>
+Dan ngomong-ngomong soal misahin, ada satu hal lagi yang lebih busuk dan lo harus tau. Penjahat yang selama ini ngehantuin kami itu... mereka pinter, bangsat. Mereka bisa aja berkamuflase. Mereka mungkin bakal bikin tulisan lain, pake nama gue sama temen-temen gue, seolah-olah ini lanjutan cerita dari gue. <br>
+
+Isinya bisa jadi nyerempet kejadian nyata, nyebut nama temen-temen gue, terus dibumbuin fitnah seolah-olah itu pandangan gue, biar gue keliatan brengsek di mata mereka. Tujuannya cuma satu, bikin mereka salah paham, bikin mereka mikir gue yang ngumbar aib, biar mereka akhirnya balik ngehujat gue. <br>
+
+Jadi, gue TEGASIN di sini. Kalau lo nemu cerita yang ngaku-ngaku dari gue, yang isinya aneh dan malah bikin panas, JANGAN PERCAYA. Itu bukan gue. Itu kerjaan mereka. Langsung hubungi gue kalo lo nemu sampah kayak gitu. Nanti tim gue yang ngadepin biang onar kayak gitu. <br>
+
+Balik lagi ke pembuatan cerita yang gue tulis dari serangkaian mimpi. Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu cuma setipis layar HP lo. <br> 
+
+Ngomong-ngomong soal layar. Dan jangan bego. Muka-muka yang gue pasang di sini, semua foto orang yang jadi pemeran di cerita busuk ini, jangan salah. Itu bukan temen gue, bukan juga musuh gue. Itu semua cuma hasil sulap. Mesin yang ngelukis muka, namanya Google Gemini. Satu lagi bumbu penyedap biar lo makin pusing nebak mana yang asli.</p>
             </div>
         </div>
     </div>
+
+
+    <header class="gila">
+        <h1 class="uwu">PERAN PENDUKUNG</h1>
+    </header>
+
+    <section class="peran-tambahan-section">
+        <div class="peran-tambahan-wadah">
+          <div class="nama-pendukung">Rangga</div>
+<div class="nama-pendukung">Nyokap Rangga</div>
+<div class="nama-pendukung">Bokap Rangga (Alm.)</div>
+<div class="nama-pendukung">Natasya (Adek Rangga)</div>
+<div class="nama-pendukung">Nazwa</div>
+<div class="nama-pendukung">Haikal</div>
+<div class="nama-pendukung">Fathir</div>
+<div class="nama-pendukung">Naila</div>
+<div class="nama-pendukung">Keyla</div>
+<div class="nama-pendukung">Zidan</div>
+<div class="nama-pendukung">Azka</div>
+<div class="nama-pendukung">Anisa</div>
+<div class="nama-pendukung">Bunga</div>
+<div class="nama-pendukung">Evan</div>
+<div class="nama-pendukung">Adit</div>
+<div class="nama-pendukung">Arkan</div>
+<div class="nama-pendukung">Ridho</div>
+<div class="nama-pendukung">Akbar</div>
+<div class="nama-pendukung">Mario</div>
+<div class="nama-pendukung">Pak Budi (Guru Olahraga)</div>
+<div class="nama-pendukung">Bu Guru Sejarah</div>
+<div class="nama-pendukung">Bu Ida (Guru Bahasa Indonesia)</div>
+<div class="nama-pendukung">Luna</div>
+<div class="nama-pendukung">Hana</div>
+<div class="nama-pendukung">Izza</div>
+<div class="nama-pendukung">Nehan</div>
+<div class="nama-pendukung">Habibah</div>
+<div class="nama-pendukung">Ibrahim</div>
+<div class="nama-pendukung">Lyra & Angel</div>
+<div class="nama-pendukung">Bang Ujang (OP Warnet)</div>
+<div class="nama-pendukung">Pak Yanto (Tukang Servis)</div>
+<div class="nama-pendukung">Ibunya Fathir</div>
+<div class="nama-pendukung">Irawati</div>
+<div class="nama-pendukung">Nur Aini</div>
+<div class="nama-pendukung">Satria</div>
+<div class="nama-pendukung">Nyokap Satria</div>
+<div class="nama-pendukung">Bokap Satria</div>
+<div class="nama-pendukung">Gilang</div>
+<div class="nama-pendukung">Rian</div>
+<div class="nama-pendukung">Laras</div>
+<div class="nama-pendukung">Zahra</div>
+<div class="nama-pendukung">Evan</div>
+
+<div class="nama-pendukung">Ryo</div>
+<div class="nama-pendukung">Kevin</div>
+<div class="nama-pendukung">Tetangga Satria</div>
+        </div>
+    </section>
     
     <div class="peti" id="kontak-peti">
         <div class="isih nav-isih">
@@ -854,68 +1617,81 @@ Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu 
         <p>&copy; 2024 - 2026 Digital Divides Us. Sebuah karya orisinal oleh Adzan Ahlil Fiqri.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const elms = document.querySelectorAll('.omah');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const idx = Array.from(elms).indexOf(entry.target);
-                        entry.target.style.animation = `uwih 0.6s ease-out ${idx * 100}ms forwards`;
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            elms.forEach(elm => observer.observe(elm));
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const badan = document.querySelector('.badan');
+        const peringatan = document.querySelector('.peringatan');
+        const allModals = document.querySelectorAll('.peti');
+        
+        function openModal(modal) {
+            if (!modal) return;
+            modal.classList.add('buka');
+            badan.classList.add('no-ges');
+            if(peringatan) {
+                peringatan.style.transform = 'translateY(-200%)';
+                peringatan.style.opacity = '0';
+            }
+        }
 
-            const bacaLengkapNarasiBtn = document.getElementById('bacaLengkapNarasi');
-            const narasiTeks = document.getElementById('narasi-teks');
-            
+        function closeModal(modal) {
+            if (!modal) return;
+            modal.classList.remove('buka');
+            if (document.querySelectorAll('.peti.buka, .bukti-peti-wadah.buka').length === 0) {
+                badan.classList.remove('no-ges');
+                if(peringatan) {
+                    peringatan.style.transform = 'translateY(0)';
+                    peringatan.style.opacity = '1';
+                }
+            }
+        }
+
+        const elms = document.querySelectorAll('.omah');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const idx = Array.from(elms).indexOf(entry.target);
+                    entry.target.style.animation = `uwih 0.6s ease-out ${idx * 100}ms forwards`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        elms.forEach(elm => observer.observe(elm));
+
+        const bacaLengkapNarasiBtn = document.getElementById('bacaLengkapNarasi');
+        const narasiTeks = document.getElementById('narasi-teks');
+        if (bacaLengkapNarasiBtn && narasiTeks) {
             bacaLengkapNarasiBtn.addEventListener('click', () => {
                 const isSingkat = narasiTeks.classList.toggle('singkat');
                 bacaLengkapNarasiBtn.textContent = isSingkat ? 'Baca Selengkapnya' : 'Tampilkan Lebih Sedikit';
             });
-            
-            document.querySelectorAll('.omah').forEach(card => {
-                const fullDesc = card.dataset.fullDesc;
-                const shortDescEl = card.querySelector('.desc-singkat');
-                if (fullDesc && shortDescEl) {
-                    let snippet = fullDesc.split('.')[0] + '.';
-                    if(snippet.length < 50) {
-                        snippet = fullDesc.substring(0, 150).split(' ').slice(0, -1).join(' ') + '...';
-                    }
-                    shortDescEl.textContent = snippet;
+        }
+
+        document.querySelectorAll('.omah').forEach(card => {
+            const fullDesc = card.dataset.fullDesc;
+            const shortDescEl = card.querySelector('.desc-singkat');
+            if (fullDesc && shortDescEl) {
+                let snippet = fullDesc.split('.')[0] + '.';
+                if (snippet.length < 50) {
+                    snippet = fullDesc.substring(0, 150).split(' ').slice(0, -1).join(' ') + '...';
                 }
-            });
+                shortDescEl.textContent = snippet;
+            }
         });
 
+        const fotoPenulis = document.getElementById('foto-penulis');
+        if (fotoPenulis) {
+            fotoPenulis.addEventListener('contextmenu', (e) => e.preventDefault());
+            fotoPenulis.addEventListener('dragstart', (e) => e.preventDefault());
+        }
+
+        const audioMap = {
+            'nazwa-card': 'sempurna.mp3',
+            'satria-card': 'distant.mp3',
+            'naila-card': 'niki.mp3'
+        };
+
+
         const uhuy = document.querySelectorAll('.uhuy');
-        const badan = document.querySelector('.badan');
-        const peringatan = document.querySelector('.peringatan');
-        
-        const potoX = document.getElementById('potoX');
-        const nmaX = document.getElementById('nmaX');
-        const descX = document.getElementById('descX');
-        const teksWad = document.querySelector('#char-peti .teksWad');
-
-        const allModals = document.querySelectorAll('.peti');
-
-        function openModal(modal) {
-            modal.classList.add('buka');
-            badan.classList.add('no-ges');
-            peringatan.style.transform = 'translateY(-200%)';
-            peringatan.style.opacity = '0';
-        }
-
-        function closeModal(modal) {
-            modal.classList.remove('buka');
-            if (document.querySelectorAll('.peti.buka').length === 0) {
-                badan.classList.remove('no-ges');
-                peringatan.style.transform = 'translateY(0)';
-                peringatan.style.opacity = '1';
-            }
-        }
-        
         uhuy.forEach(tkn => {
             tkn.addEventListener('click', () => {
                 const omah = tkn.closest('.omah');
@@ -923,16 +1699,39 @@ Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu 
                 const txtNma = omah.querySelector('.nma').textContent;
                 const fullDsc = omah.dataset.fullDesc;
                 const charPeti = document.getElementById('char-peti');
+                const potoX = document.getElementById('potoX');
+                const nmaX = document.getElementById('nmaX');
+                const descX = document.getElementById('descX');
+                const teksWad = document.querySelector('#char-peti .teksWad');
                 
+                if (!potoX || !nmaX || !descX || !teksWad) return;
+
+                 const existingAudio = teksWad.querySelector('.audio-pemutar-wadah');
+                if (existingAudio) {
+                    existingAudio.remove();
+                }
+
                 nmaX.classList.remove('anim-teks');
                 descX.classList.remove('anim-teks');
-                
                 teksWad.scrollTop = 0;
-
                 potoX.src = srcPoto;
                 nmaX.textContent = txtNma;
-                descX.textContent = fullDsc.replace(/\[\s*DESKRIPSI LENGKAP .*?\]/g, "Teks deskripsi lengkap belum tersedia. Mohon kembali lagi nanti.");
+                descX.textContent = fullDsc;
                 
+                 const audioFile = audioMap[omah.id];
+                if (audioFile) {
+                    const audioContainer = document.createElement('p');
+                    audioContainer.className = 'audio-pemutar-wadah';
+                    
+                    const audioEl = document.createElement('audio');
+                    audioEl.className = 'audio-pemutar';
+                    audioEl.controls = true;
+                    audioEl.src = audioFile;
+                    
+                    audioContainer.appendChild(audioEl);
+                    descX.appendChild(audioContainer);
+                }
+
                 openModal(charPeti);
                 
                 setTimeout(() => {
@@ -960,25 +1759,111 @@ Karena di dunia yang udah segila ini... kadang bedanya mimpi sama kenyataan itu 
                 });
             }
         }
+        
+        const objekBuktiSemua = document.querySelectorAll('.objek-bukti');
+        const buktiPeti = document.getElementById('bukti-peti');
+        const buktiPetiIsi = document.getElementById('bukti-peti-isi');
+        const tutupBuktiPeti = document.getElementById('tutup-peti');
+        
+        const dataLore = {
+           'hp': `
+                <h2 class="anim-teks">Jejak Digital yang Hilang</h2>
+                <p class="anim-teks" style="animation-delay: 100ms; text-align: left;">
+                    Gue inget banget, sebelum semua jadi abu, gue pernah nemu satu jejak aneh di Twitter. Cuma sekelebat, kayak penampakan. Thread dari anak sekolah lain, entah di mana. Dia cerita soal temennya, siswi, yang jadi korban. Fotonya diedit pake video AI sialan itu sampe keliatan... Jijik anjir bacanya. Editan-nya, isinya... ah, persetan, gue bahkan mual buat ngetiknya lagi. 
+                    <br><br>
+                    Besoknya, gue ajak Arkan dan Naila buat ngecek lagi. Niatnya mau gue screenshot, mau gue jadiin bukti. Tapi... ilang. Lenyap total, akunnya, thread-nya, semuanya kayak gak pernah ada. Dan gue bego banget gak sempet nyimpen buktinya. Gue nyesel setengah mati, Cuy. Nyesel karena di saat gue punya kesempatan buat ngumpulin amunisi, gue malah mikir 'ah, besok aja'. 
+                    <br><br>
+                    Sekarang, bukti itu cuma ada di kepala gue. Jadi kenangan pait yang ngingetin gue kalo di dunia digital, kejahatan itu bisa muncul dan ngilang secepat kedipan mata. Dan kalo lo telat sedetik aja... lo bakal kehilangan semuanya.
+                </p>
+            `,
+                       'majalah': `
+                <h2 class="anim-teks">Hipotesis Warta Gembel</h2>
+                <img src="warta.png" alt="Majalah" class="bukti-gambar anim-teks" style="animation-delay: 100ms;">
+                <p class="anim-teks" style="animation-delay: 100ms; text-align: left;">
+                     "Oke, biar gak bingung, ini Arkan yang ngomong, bukan Rangga, bukan Penulis, bukan AI nenek moyang lo. Analisis awal gue terhadap artefak ini simpel, semua isinya -> Anomali. Berita majalah bule soal kucing oren nge-prank warga sama komik alien? Gak nyambung sama kondisi psikologis si kreator yang tiap hari diinjek. Lo gak usah jadi gue buat liat itu gak logis.
+                     <br><br>
+                     Jadi, hipotesis gue cuma satu: Warta Gembel yang dijual itu cuma... trailer-nya... prolog. Dia itu diem-diem ngumpulin data, boy. Setiap hinaan Geng Basis, setiap lawakan goblok Azka, bahkan bacotan gue yang ini, semuanya dicatet di manuskrip utama. Kita semua ini cuma jadi karakternya doang di studi kasus jangka panjangnya dia. Intinya menurut gue, dia bukan nulis, dia itu lagi ngarsipin kebodohan kita.
+                     <br><br>
+                     Ironisnya... gue yang sok sibuk bikin flowchart soal hidup orang lain... ternyata dari awal cuma sebaris data di tabel Excel milik si bule kere. Sialan. Over."
+                </p>
+            `,
+            'kado': `
+                <h2 class="anim-teks">Sebuah Kado</h2>
+                 <img src="miniatur.png" alt="Miniatur Musholla dari Stik Es Krim" class="bukti-gambar anim-teks" style="animation-delay: 100ms;">
+                <p class="anim-teks" style="animation-delay: 100ms; margin-top: 1rem;">
+                    "Beberapa hadiah tidak pernah sampai ke tujuan yang tepat. Alih-alih menjadi penanda sebuah awal, kado ini justru menjadi saksi dari sebuah kehilangan yang tak akan pernah bisa diperbaiki."
+                </p>
+            `,
+            'laptop': `
+                <h2 class="anim-teks">Jendela Dunia Maya</h2>
+                <p class="anim-teks" style="animation-delay: 100ms; text-align: left;">
+                     "No desc available"
+                </p>
+            `,
+            'topi': `
+                <h2 class="anim-teks">Topi Penyamaran</h2>
+                <p class="anim-teks" style="animation-delay: 100ms; text-align: left;">
+                     "No desc available"
+                </p>
+            `,
+                        'pisau': `
+                <h2 class="anim-teks">Cerita yang Tajam</h2>
+                <p class="anim-teks" style="animation-delay: 100ms; text-align: left;">
+                    Haii gais~! ✨ Aku jadi inget sesuatu deh, tapi jangan bilang siapa-siapa ya, hehe 🤫. Waktu itu aku gak sengaja dengerin Ratu Gosip Bunga sama Luna lagi ngebahas cerita lama... cerita yang serem banget.
+                    <br><br>
+                    Katanya, dulu banget pernah ada kasus, ada 7 siswa-siswi gitu yang semua data pribadinya... disebar ke mana-mana 😱. Tapi yang paling bikin aku sesek napas itu bukan cuma itu... nama-nama mereka yang bagus-bagus itu diplesetin, disambung-sambungin sama kata-kata yang kotor dan nusuk banget. Sumpah, pas denger detailnya itu, aku langsung lari ke toilet, nangis diem-diem 😭.
+                    <br><br>
+                    Gak kebayang deh rasanya... kayak nama baik kamu, satu-satunya yang kamu punya, tiba-tiba disobek-sobek di depan semua orang pake pisau yang gak keliatan 💔. Makanya gais, kita harus baik-baik ya sama tulisan kita. Jangan sampe kata-kata kita malah jadi pisau buat orang lain! Janji? 😉💖
+                </p>
+            `
+        };
 
+        if (objekBuktiSemua.length > 0 && buktiPeti && buktiPetiIsi) {
+            objekBuktiSemua.forEach(objek => {
+                objek.addEventListener('click', function() {
+                    const loreKey = this.dataset.loreKey;
+                    if (dataLore[loreKey]) {
+                        buktiPetiIsi.innerHTML = dataLore[loreKey];
+                        openModal(buktiPeti);
+                    }
+                });
+            });
+        }
+       
         allModals.forEach(modal => {
             const tutup = modal.querySelector('.tutup');
-            tutup.addEventListener('click', () => closeModal(modal));
+            if(tutup) {
+                tutup.addEventListener('click', () => closeModal(modal));
+            }
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeModal(modal);
                 }
             });
         });
+        
+        if (buktiPeti) {
+            buktiPeti.addEventListener('click', (e) => {
+                 if (e.target === buktiPeti) {
+                    closeModal(buktiPeti);
+                }
+            });
+             if (tutupBuktiPeti) {
+                tutupBuktiPeti.addEventListener('click', () => {
+                    closeModal(buktiPeti);
+                });
+            }
+        }
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                const openModal = document.querySelector('.peti.buka');
+                const openModal = document.querySelector('.peti.buka, .bukti-peti-wadah.buka');
                 if (openModal) {
                     closeModal(openModal);
                 }
             }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
