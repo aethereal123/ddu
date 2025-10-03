@@ -1147,6 +1147,45 @@
         border-radius: 25px;
         margin: 0 10px;
     }
+
+    #jam_kiamat {
+    position: fixed;
+    top: 92px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    display: flex;
+    gap: 1rem;
+    background: rgba(45, 52, 54, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.blok_waktu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.angka_sial {
+    color: var(--putih);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.label_kutukan {
+    color: var(--batas);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+@media (max-width: 767px) {
+    #jam_kiamat {
+        top: 112px;
+        gap: 0.8rem;
+    }
+    .angka_sial {
+        font-size: 1.2rem;
+    }
+}
 </style>
  
 </head>
@@ -1162,6 +1201,24 @@
     </header>
 
     <div class="peringatan">D.D.U AKAN RILIS PADA 15 FEBRUARI 2026</div>
+    <div id="jam_kiamat">
+    <div class="blok_waktu">
+        <span id="hari" class="angka_sial">00</span>
+        <span class="label_kutukan">Hari</span>
+    </div>
+    <div class="blok_waktu">
+        <span id="jam" class="angka_sial">00</span>
+        <span class="label_kutukan">Jam</span>
+    </div>
+    <div class="blok_waktu">
+        <span id="menit" class="angka_sial">00</span>
+        <span class="label_kutukan">Menit</span>
+    </div>
+    <div class="blok_waktu">
+        <span id="detik" class="angka_sial">00</span>
+        <span class="label_kutukan">Detik</span>
+    </div>
+</div>
 
     <section class="utama">
         <div class="potoWad">
@@ -1968,7 +2025,28 @@ Ngomong-ngomong soal layar. Dan jangan bego. Muka-muka yang gue pasang di sini, 
                 }
             }
         });
+        const tglTarget = new Date("Feb 15, 2026 00:00:00").getTime();
+        const tikTak = setInterval(function() {
+            const skrg = new Date().getTime();
+            const delta = tglTarget - skrg;
+
+            const d = Math.floor(delta / (1000 * 60 * 60 * 24));
+            const j = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+            const dt = Math.floor((delta % (1000 * 60)) / 1000);
+
+            document.getElementById("hari").innerText = String(d).padStart(2, '0');
+            document.getElementById("jam").innerText = String(j).padStart(2, '0');
+            document.getElementById("menit").innerText = String(m).padStart(2, '0');
+            document.getElementById("detik").innerText = String(dt).padStart(2, '0');
+
+            if (delta < 0) {
+                clearInterval(tikTak);
+                document.getElementById("jam_kiamat").innerHTML = "<h3 style='color: white; font-size: 1rem; margin: 0; padding: 0.5rem;'>WAKTUNYA TELAH TIBA</h3>";
+            }
+        }, 1000);
     });
+    
 </script>
 </body>
 </html>
